@@ -1,0 +1,2982 @@
+<!DOCTYPE html>
+<!-- saved from url=(0076)file:///C:/Users/yukik/Downloads/%E3%83%AA%E3%83%8F%E3%83%A1%E3%83%A2_3.html -->
+<html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>リハメモ — OT・PTのための実践メモ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+<link href="./リハメモ — OT・PTのための実践メモ_files/css2" rel="stylesheet">
+<style>
+:root {
+  --bg: #f5f3ef;
+  --bg-alt: #eeece7;
+  --paper: #faf9f6;
+  --ink: #1a1814;
+  --ink-soft: #4a4640;
+  --ink-mute: #8a8580;
+  --accent: #2d6a4f;
+  --accent-ink: #1b4332;
+  --accent-light: #d8f3dc;
+  --sage: #52b788;
+  --ochre: #c77c30;
+  --rule: #d8d4cc;
+  --serif: 'Noto Serif JP', serif;
+  --sans: 'Noto Sans JP', sans-serif;
+  --mono: 'DM Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ===== MASTHEAD ===== */
+.masthead {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: color-mix(in oklab, var(--bg) 90%, transparent);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--rule);
+}
+.masthead .inner {
+  display: flex;
+  align-items: center;
+  height: 64px;
+  gap: 0;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  flex-shrink: 0;
+}
+.logo-name {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.logo-dot {
+  width: 5px;
+  height: 5px;
+  background: var(--accent);
+  border-radius: 50%;
+}
+.logo-sub {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  color: var(--ink-mute);
+  text-transform: uppercase;
+  margin-left: 2px;
+}
+.main-nav {
+  display: flex;
+  gap: 2px;
+  margin-left: 40px;
+}
+.main-nav button {
+  font-family: var(--sans);
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--ink-soft);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 4px;
+  transition: color .15s, background .15s;
+}
+.main-nav button:hover { color: var(--ink); background: var(--bg-alt); }
+.main-nav button.active { color: var(--ink); font-weight: 600; }
+.nav-right { margin-left: auto; display: flex; gap: 8px; align-items: center; }
+.btn {
+  font-family: var(--sans);
+  font-size: 13.5px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all .15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.btn-primary {
+  background: var(--ink);
+  color: var(--bg);
+  border: 1px solid var(--ink);
+  padding: 9px 18px;
+}
+.btn-primary:hover { background: var(--accent-ink); border-color: var(--accent-ink); }
+.btn-ghost {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  padding: 9px 18px;
+}
+.btn-ghost:hover { background: var(--bg-alt); border-color: var(--ink-mute); }
+.btn-sm { font-size: 12px; padding: 6px 12px; }
+
+/* ===== CHIPS ===== */
+.chip {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  padding: 3px 8px;
+  border-radius: 3px;
+  border: 1px solid var(--rule);
+  color: var(--ink-mute);
+  background: var(--bg-alt);
+  display: inline-block;
+}
+.chip.accent { background: var(--accent-light); color: var(--accent-ink); border-color: transparent; }
+.chip.sage { background: #d8f3dc; color: #1b4332; border-color: transparent; }
+.chip.ochre { background: #fde8cc; color: #7c4a1a; border-color: transparent; }
+
+/* ===== PAGES ===== */
+.page { display: none; }
+.page.active { display: block; }
+
+/* ===== HOME ===== */
+.hero {
+  padding: 80px 0 72px;
+  border-bottom: 1px solid var(--rule);
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 260px;
+  gap: 60px;
+  align-items: center;
+}
+.hero-eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--accent-ink);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  margin-bottom: 20px;
+}
+.hero h1 em { font-style: normal; color: var(--accent); }
+.hero-lead {
+  font-size: 15.5px;
+  color: var(--ink-soft);
+  line-height: 1.85;
+  max-width: 48ch;
+  margin-bottom: 32px;
+  text-wrap: pretty;
+}
+.hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+.hero-aside {
+  border: 1px solid var(--rule);
+  padding: 24px;
+  background: var(--paper);
+}
+.hero-aside h4 {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  color: var(--ink-mute);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.hero-aside p {
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+.hero-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border-top: 1px solid var(--rule);
+  padding-top: 16px;
+}
+.hero-stats > div {
+  padding: 8px 0;
+}
+.hero-stats .num {
+  font-family: var(--serif);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.hero-stats .lbl {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  color: var(--ink-mute);
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+/* ===== SECTION ===== */
+.sec { padding: 64px 0; }
+.sec-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 36px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--rule);
+}
+.kicker {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  color: var(--accent-ink);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.sec-head h2 {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+.more {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--ink-mute);
+  text-transform: uppercase;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color .15s;
+  flex-shrink: 0;
+  margin-left: 24px;
+}
+.more:hover { color: var(--ink); }
+
+/* ===== FEATURE CARD ===== */
+.feature {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 40px;
+  align-items: start;
+  padding: 32px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.feature .art {
+  background: var(--bg-alt);
+  border: 1px solid var(--rule);
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.num-big {
+  font-family: var(--serif);
+  font-size: 80px;
+  font-weight: 700;
+  color: var(--rule);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+.feature-chips { display: flex; gap: 6px; margin-bottom: 16px; }
+.feature h2 {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.45;
+  cursor: pointer;
+  margin-bottom: 12px;
+  text-wrap: pretty;
+  transition: color .15s;
+}
+.feature h2:hover { color: var(--accent-ink); }
+.feature p { font-size: 14.5px; color: var(--ink-soft); line-height: 1.8; margin-bottom: 20px; }
+.feature-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 12px;
+  color: var(--ink-mute);
+}
+.feature-meta .mono-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* ===== FEED (article cards) ===== */
+.feed { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
+.card {
+  padding: 24px;
+  border-right: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  cursor: pointer;
+  transition: background .15s;
+}
+.card:nth-child(3n) { border-right: 0; }
+.card:hover { background: var(--paper); }
+.card .meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--ink-mute);
+  margin-bottom: 12px;
+}
+.card .meta span { display: flex; align-items: center; }
+.card h3 {
+  font-family: var(--serif);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.5;
+  margin-bottom: 8px;
+  text-wrap: pretty;
+}
+.card p { font-size: 12.5px; color: var(--ink-soft); line-height: 1.75; margin-bottom: 12px; }
+.card .byline {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: var(--ink-mute);
+  letter-spacing: 0.1em;
+}
+
+/* ===== VOICES GRID ===== */
+.voices-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+}
+.voice {
+  border-right: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  padding: 20px;
+}
+.voice:nth-child(3n) { border-right: 0; }
+.voice-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  font-size: 12px;
+  color: var(--ink-mute);
+}
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.dot.patient { background: var(--accent); }
+.dot.therapist { background: var(--ochre); }
+.voice-body { font-size: 13.5px; line-height: 1.8; color: var(--ink-soft); margin-bottom: 14px; }
+.voice-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11.5px;
+  color: var(--ink-mute);
+}
+.vote { display: flex; align-items: center; gap: 5px; font-family: var(--mono); font-size: 11px; }
+
+/* ===== STATS BAND ===== */
+.stats-band {
+  background: var(--ink);
+  color: var(--bg);
+  padding: 48px 0;
+}
+.stats-band .container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+}
+.stats-band .k {
+  padding: 12px 32px 12px 0;
+  border-right: 1px solid #333;
+}
+.stats-band .k:last-child { border-right: 0; padding-right: 0; padding-left: 32px; }
+.stats-band .k:not(:first-child):not(:last-child) { padding: 12px 32px; }
+.stats-band .n {
+  font-family: var(--serif);
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+.stats-band .l {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #888;
+}
+
+/* ===== AD BANNER ===== */
+.ad-banner {
+  border: 1px dashed var(--rule);
+  background: var(--bg-alt);
+  text-align: center;
+  padding: 28px;
+  color: var(--ink-mute);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin: 32px 0;
+}
+
+/* ===== ARTICLES PAGE ===== */
+.articles-hero {
+  padding: 60px 0 48px;
+  border-bottom: 1px solid var(--rule);
+}
+.articles-hero .mono-eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: var(--accent-ink);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.articles-hero h1 {
+  font-family: var(--serif);
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+}
+.articles-hero p { font-size: 15px; color: var(--ink-soft); }
+.filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--rule);
+  flex-wrap: wrap;
+}
+.filter-bar .label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--ink-mute);
+  text-transform: uppercase;
+  margin-right: 4px;
+}
+.filter-chip {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  padding: 5px 12px;
+  border-radius: 3px;
+  border: 1px solid var(--rule);
+  background: transparent;
+  color: var(--ink-mute);
+  cursor: pointer;
+  transition: all .15s;
+}
+.filter-chip:hover { border-color: var(--ink-mute); color: var(--ink); }
+.filter-chip.on { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.sort-group { margin-left: auto; display: flex; gap: 8px; align-items: center; }
+.article-list { margin-top: 0; }
+.article-row {
+  display: grid;
+  grid-template-columns: 120px 1fr auto;
+  gap: 24px;
+  align-items: start;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--rule);
+  cursor: pointer;
+  transition: background .15s;
+}
+.article-row:hover { padding-left: 8px; }
+.article-row .date-col {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  color: var(--ink-mute);
+  text-transform: uppercase;
+  padding-top: 4px;
+}
+.article-row h3 {
+  font-family: var(--serif);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+  margin-bottom: 6px;
+  text-wrap: pretty;
+}
+.article-row p { font-size: 13px; color: var(--ink-soft); line-height: 1.7; }
+.article-row .chips { display: flex; gap: 6px; margin-bottom: 8px; }
+.article-row .read-time {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: var(--ink-mute);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  padding-top: 4px;
+}
+
+/* ===== ARTICLE DETAIL ===== */
+.detail { padding: 48px 0 80px; }
+.detail-back {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--ink-mute);
+  text-transform: uppercase;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 40px;
+  transition: color .15s;
+}
+.detail-back:hover { color: var(--ink); }
+.detail-wrap {
+  display: grid;
+  grid-template-columns: 200px 1fr 200px;
+  gap: 48px;
+  align-items: start;
+}
+.detail-aside {
+  border: 1px solid var(--rule);
+  padding: 20px;
+  position: sticky;
+  top: 80px;
+}
+.detail-aside h5 {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-bottom: 12px;
+}
+.detail-aside ol, .detail-aside ul { padding-left: 16px; }
+.detail-aside li {
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  line-height: 1.8;
+  cursor: pointer;
+  transition: color .15s;
+}
+.detail-aside li:hover { color: var(--ink); }
+.detail-kicker {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.detail-head h1 {
+  font-family: var(--serif);
+  font-size: clamp(22px, 2.8vw, 34px);
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  margin-bottom: 16px;
+  text-wrap: pretty;
+}
+.detail-lead {
+  font-size: 16px;
+  color: var(--ink-soft);
+  line-height: 1.85;
+  margin-bottom: 20px;
+}
+.detail-byline {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 32px;
+}
+.detail-hero-img {
+  background: var(--bg-alt);
+  border: 1px solid var(--rule);
+  height: 200px;
+  margin-bottom: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink-mute);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.detail-hero-img::after { content: "Article Image Placeholder"; }
+.detail-body { max-width: 680px; }
+.detail-body p { font-size: 15px; line-height: 1.95; color: var(--ink-soft); margin-bottom: 20px; }
+.detail-body h2 {
+  font-family: var(--serif);
+  font-size: 21px;
+  font-weight: 700;
+  margin: 36px 0 14px;
+  color: var(--ink);
+}
+.detail-body h3 {
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 700;
+  margin: 28px 0 10px;
+  color: var(--ink);
+}
+.detail-body blockquote {
+  border-left: 3px solid var(--accent);
+  padding: 14px 20px;
+  margin: 24px 0;
+  background: var(--bg-alt);
+  font-size: 14.5px;
+  color: var(--ink-soft);
+  line-height: 1.85;
+}
+.detail-body ul { padding-left: 20px; margin-bottom: 20px; line-height: 2; }
+.detail-body ul li { font-size: 14.5px; color: var(--ink-soft); }
+.refbox {
+  border: 1px solid var(--rule);
+  padding: 20px 24px;
+  margin: 32px 0;
+  background: var(--bg-alt);
+}
+.refbox h4 {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-bottom: 12px;
+}
+.refbox ol { padding-left: 18px; }
+.refbox li { font-size: 12.5px; color: var(--ink-soft); line-height: 1.8; margin-bottom: 4px; }
+.author-box {
+  max-width: 680px;
+  margin-top: 56px;
+  padding: 24px;
+  background: var(--bg-alt);
+  border: 1px solid var(--rule);
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+.avatar {
+  width: 52px;
+  height: 52px;
+  background: var(--ink);
+  color: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 20px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.author-box .name { font-weight: 700; margin-bottom: 4px; }
+.author-box .bio { font-size: 12.5px; color: var(--ink-soft); line-height: 1.7; }
+
+/* ===== APPS PAGE ===== */
+.app-hero {
+  padding: 60px 0 48px;
+  border-bottom: 1px solid var(--rule);
+}
+.app-hero .mono-eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: var(--accent-ink);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.app-hero h1 {
+  font-family: var(--serif);
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+.app-hero p { font-size: 15px; color: var(--ink-soft); line-height: 1.85; margin-bottom: 28px; }
+.app-ctas { margin-bottom: 48px; }
+.app-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border: 1px solid var(--rule);
+  background: var(--paper);
+  max-width: 720px;
+}
+.app-stats > div {
+  padding: 22px 20px;
+  border-right: 1px solid var(--rule);
+  text-align: center;
+}
+.app-stats > div:last-child { border-right: 0; }
+.app-stats .stat-n {
+  font-family: var(--serif);
+  font-size: 34px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.app-stats .stat-l {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-top: 8px;
+}
+.symptom-section { padding: 56px 0; border-bottom: 1px solid var(--rule); }
+.symptom-grid {
+  display: grid;
+  grid-template-columns: 1fr 2.4fr;
+  gap: 48px;
+  align-items: start;
+  border-top: 1px solid var(--ink);
+  padding-top: 24px;
+}
+.symptom-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--ink-mute);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.symptom-title {
+  font-family: var(--serif);
+  font-size: clamp(26px, 3vw, 40px);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin-bottom: 12px;
+}
+.symptom-desc { font-size: 14px; color: var(--ink-soft); line-height: 1.85; }
+.app-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid var(--rule);
+}
+.app-card {
+  padding: 28px 26px;
+  border-right: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: var(--bg);
+}
+.app-card:nth-child(2n) { border-right: 0; }
+.app-card:nth-last-child(-n+2) { border-bottom: 0; }
+.app-card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+.app-card-num {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--ink-mute);
+  text-transform: uppercase;
+}
+.app-card h3 {
+  font-family: var(--serif);
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  line-height: 1.3;
+  text-wrap: pretty;
+}
+.app-card p { font-size: 13px; color: var(--ink-soft); line-height: 1.75; flex: 1; }
+.app-card-footer {
+  display: flex;
+  gap: 8px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--rule);
+  align-items: center;
+  margin-top: auto;
+}
+.coming-soon-box {
+  padding: 48px 32px;
+  border: 1px dashed var(--rule);
+  background: var(--bg-alt);
+  text-align: center;
+  color: var(--ink-soft);
+}
+.coming-soon-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-bottom: 14px;
+}
+.coming-soon-box p { font-size: 14px; line-height: 1.85; max-width: 40ch; margin: 0 auto; }
+
+/* ===== VOICES PAGE ===== */
+.voices-hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  padding: 60px 0 56px;
+  border-bottom: 1px solid var(--rule);
+}
+.voices-hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(28px, 3.5vw, 46px);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+.voices-hero .sub { font-size: 14px; color: var(--ink-soft); line-height: 1.85; }
+.voice-composer {
+  border: 1px solid var(--rule);
+  background: var(--paper);
+}
+.cat-toggle {
+  display: flex;
+  border-bottom: 1px solid var(--rule);
+}
+.cat-toggle button {
+  flex: 1;
+  padding: 12px;
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 500;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--ink-mute);
+  transition: all .15s;
+}
+.cat-toggle button.on { color: var(--ink); background: var(--bg-alt); border-bottom: 2px solid var(--ink); }
+.voice-composer textarea {
+  width: 100%;
+  min-height: 100px;
+  padding: 16px;
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.75;
+  background: none;
+  border: none;
+  resize: vertical;
+  color: var(--ink);
+  outline: none;
+}
+.voice-composer .actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-top: 1px solid var(--rule);
+}
+.voice-composer .hint {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  color: var(--ink-mute);
+  text-transform: uppercase;
+}
+.research-band {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 48px;
+  padding: 40px 0;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  margin: 40px 0;
+  align-items: center;
+}
+.research-band .n {
+  font-family: var(--serif);
+  font-size: 48px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.research-band .l {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-top: 6px;
+}
+.research-band h3 { font-family: var(--serif); font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+.research-band p { font-size: 13.5px; color: var(--ink-soft); line-height: 1.8; margin-bottom: 16px; }
+.voices-feed { margin-top: 32px; }
+.voice-full {
+  padding: 24px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.voice-full.lg .voice-body { font-size: 15.5px; }
+.voice-full .voice-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  font-size: 12px;
+  color: var(--ink-mute);
+}
+.voice-full .voice-body { font-size: 14px; line-height: 1.85; color: var(--ink-soft); margin-bottom: 14px; max-width: 72ch; }
+.voice-full .voice-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: var(--ink-mute);
+  max-width: 72ch;
+}
+
+/* ===== FOOTER ===== */
+.foot {
+  background: var(--ink);
+  color: var(--bg);
+  padding: 64px 0 0;
+}
+.foot-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 48px;
+  padding-bottom: 48px;
+}
+.foot .logo-name { color: var(--bg); font-family: var(--serif); font-size: 17px; font-weight: 700; }
+.foot .logo-dot { background: var(--sage); }
+.foot-desc { font-size: 13px; color: #888; line-height: 1.85; max-width: 38ch; margin-top: 12px; }
+.foot-col h5 {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #666;
+  margin-bottom: 16px;
+}
+.foot-col ul { list-style: none; }
+.foot-col li { margin-bottom: 10px; }
+.foot-col a {
+  font-size: 13.5px;
+  color: #aaa;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color .15s;
+}
+.foot-col a:hover { color: var(--bg); }
+.foot-info {
+  border-top: 1px solid #2a2a2a;
+  padding: 24px 0;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 32px;
+  align-items: start;
+}
+.foot-info .label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: #555;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.foot-info .bio-text { font-size: 12.5px; color: #777; line-height: 1.85; }
+.foot-info .email {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--bg);
+  text-decoration: none;
+  border-bottom: 1px solid #444;
+  padding-bottom: 2px;
+  white-space: nowrap;
+}
+.foot-bottom {
+  border-top: 1px solid #1a1a1a;
+  padding: 20px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  color: #555;
+  text-transform: uppercase;
+}
+
+/* ===== SPACER ===== */
+.spacer-lg { height: 80px; }
+
+/* ===== RELATED ===== */
+.related-item {
+  cursor: pointer;
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  padding-bottom: 14px;
+  border-bottom: 1px dashed var(--rule);
+  margin-bottom: 14px;
+}
+.related-item:last-child { border-bottom: 0; margin-bottom: 0; }
+.related-cat {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.12em;
+  color: var(--ink-mute);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.related-title {
+  font-family: var(--serif);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.45;
+  transition: color .15s;
+}
+.related-item:hover .related-title { color: var(--accent-ink); }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero-aside { display: none; }
+  .feed { grid-template-columns: 1fr; }
+  .card { border-right: 0; }
+  .voices-grid { grid-template-columns: 1fr; }
+  .voice { border-right: 0; }
+  .stats-band .container { grid-template-columns: repeat(2, 1fr); }
+  .detail-wrap { grid-template-columns: 1fr; }
+  .detail-wrap .toc:first-child { display: none; }
+  .app-cards { grid-template-columns: 1fr; }
+  .app-card { border-right: 0; }
+  .voices-hero { grid-template-columns: 1fr; }
+  .foot-grid { grid-template-columns: 1fr 1fr; }
+  .foot-info { grid-template-columns: 1fr; }
+  .main-nav { display: none; }
+  .article-row { grid-template-columns: 1fr; }
+  .article-row .date-col { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== MASTHEAD ===== -->
+<header class="masthead">
+  <div class="container inner">
+    <button class="logo" onclick="showPage(&#39;home&#39;)">
+      <span class="logo-name">リハメモ</span>
+      <span class="logo-dot"></span>
+      <span class="logo-sub">Rehab Memo / EST. 2026</span>
+    </button>
+    <nav class="main-nav">
+      <button onclick="showPage(&#39;home&#39;)" id="nav-home" class="active">ホーム</button>
+      <button onclick="showPage(&#39;articles&#39;)" id="nav-articles">記事</button>
+      <button onclick="showPage(&#39;apps&#39;)" id="nav-apps">アプリ</button>
+      <button onclick="showPage(&#39;voices&#39;)" id="nav-voices">声・質問</button>
+    </nav>
+    <div class="nav-right">
+      <button class="btn btn-ghost btn-sm">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+        検索
+      </button>
+      <button class="btn btn-ghost btn-sm" onclick="openAdmin()" style="border-color:var(--accent);color:var(--accent-ink)">
+        ⚙ 管理
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ===== HOME PAGE ===== -->
+<div id="page-home" class="page active">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="hero-eyebrow" id="hero-vol">Vol. 24 — 2026年4月 / OT・PT向け</div>
+        <h1 id="hero-title">臨床の<em>「あと一歩」</em>を、<br>言葉にして持ち帰る。</h1>
+        <p class="hero-lead" id="hero-lead">新人から中堅まで、現場で悩むリハビリテーション従事者のための実践メモ。エビデンスと現場の手触りを、両方ちゃんと扱う場所をつくっています。</p>
+        <div class="hero-ctas">
+          <button class="btn btn-primary" onclick="showPage(&#39;articles&#39;)">
+            最新の記事を読む
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+          </button>
+          <button class="btn btn-ghost" onclick="showPage(&#39;apps&#39;)">自主トレアプリを見る</button>
+        </div>
+      </div>
+      <aside class="hero-aside">
+        <h4>THIS WEEK'S FIGURES</h4>
+        <p>臨床の手応えを、少しずつ集合知にしていく試み。</p>
+        <div class="hero-stats">
+          <div><div class="num" id="stat-members">11,402</div><div class="lbl">members</div></div>
+          <div><div class="num" id="stat-articles">284</div><div class="lbl">articles</div></div>
+          <div><div class="num" id="stat-voices">1,902</div><div class="lbl">voices</div></div>
+          <div><div class="num" id="stat-research">37</div><div class="lbl">research</div></div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- Feature -->
+  <section class="sec">
+    <div class="container">
+      <div class="sec-head">
+        <div>
+          <div class="kicker">FEATURE / 今週の一本</div>
+          <h2>読み応えのある、一本の長い記事を。</h2>
+        </div>
+        <span class="more" onclick="showPage(&#39;articles&#39;)">すべてのFeature →</span>
+      </div>
+      <div class="feature">
+        <div class="art"><div class="num-big">01</div></div>
+        <div>
+          <div class="feature-chips" id="feature-chips"><span class="chip accent">脳卒中</span><span class="chip">エビデンス</span><span class="chip ochre">中堅</span></div>
+          <h2 id="feature-title" onclick="" style="cursor:pointer">CI療法は本当に効く？2026年系統的レビューから読み解く上肢機能回復の最適用量</h2>
+          <p id="feature-excerpt">強度・頻度・環境因子を分解し、現場で使える具体的プロトコルに落とし込む。17RCT, n=912の最新メタ解析より。</p>
+          <div class="feature-meta">
+            <span class="mono-label" id="feature-meta">9分読了 · 引用17件</span>
+            <button class="btn btn-sm" id="feature-link" style="margin-left:auto">続きを読む <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ad Banner -->
+  <div class="container">
+    <div class="ad-banner">広告掲載枠 — Advertisement</div>
+  </div>
+
+  <!-- Latest Articles -->
+  <section class="sec" style="padding-top:0">
+    <div class="container">
+      <div class="sec-head">
+        <div>
+          <div class="kicker">LATEST / 最新のメモ</div>
+          <h2>エビデンスと現場の翻訳</h2>
+        </div>
+        <span class="more" onclick="showPage(&#39;articles&#39;)">記事一覧へ →</span>
+      </div>
+    </div>
+    <div class="container">
+      <div class="feed" id="home-feed">
+    <div class="card" onclick="showArticle(&#39;stroke-upper-limb-2026&#39;)">
+      <div class="meta">
+        <span>2026.04.12</span>
+        <span style="color:var(--rule)">/</span>
+        <span>脳卒中</span>
+        <span class="chip ochre" style="margin-left:auto">中堅</span>
+      </div>
+      <h3>CI療法は本当に効く？2026年系統的レビューから読み解く上肢機能回復の最適用量</h3>
+      <p>強度・頻度・環境因子を分解し、現場で使える具体的プロトコルに落とし込む。17RCT, n=912の最新メタ解析より。</p>
+      <div class="byline"><span>9分</span></div>
+    </div>
+    <div class="card" onclick="showArticle(&#39;fall-prevention-elderly&#39;)">
+      <div class="meta">
+        <span>2026.04.08</span>
+        <span style="color:var(--rule)">/</span>
+        <span>高齢者</span>
+        <span class="chip sage" style="margin-left:auto">新人</span>
+      </div>
+      <h3>転倒予防の「あと一歩」— バランス評価と介入を繋ぐ臨床フレーム</h3>
+      <p>BBS・TUG・FRTだけで満足していませんか。評価→目標→介入の筋を通すための、明日から使える5つの視点。</p>
+      <div class="byline"><span>7分</span></div>
+    </div>
+    <div class="card" onclick="showArticle(&#39;hand-therapy-ot&#39;)">
+      <div class="meta">
+        <span>2026.04.05</span>
+        <span style="color:var(--rule)">/</span>
+        <span>整形</span>
+        <span class="chip sage" style="margin-left:auto">新人</span>
+      </div>
+      <h3>橈骨遠位端骨折後の自主トレ、処方時に外せない3つの問診</h3>
+      <p>「痛くない範囲で」では伝わらない。OTが現場で積み上げてきた、安全域を決めるための具体の聞き方。</p>
+      <div class="byline"><span>6分</span></div>
+    </div>
+    <div class="card" onclick="showArticle(&#39;motivation-chronic&#39;)">
+      <div class="meta">
+        <span>2026.03.30</span>
+        <span style="color:var(--rule)">/</span>
+        <span>慢性期</span>
+        <span class="chip ochre" style="margin-left:auto">中堅</span>
+      </div>
+      <h3>やる気が続かない患者さんへ — 自己決定理論で組み立て直す目標設定</h3>
+      <p>SDTの3つの心理的欲求を、リハの現場言語に翻訳する。モチベーションは「引き出す」ものではなく「設計する」もの。</p>
+      <div class="byline"><span>11分</span></div>
+    </div>
+    <div class="card" onclick="showArticle(&#39;gait-analysis-basics&#39;)">
+      <div class="meta">
+        <span>2026.03.24</span>
+        <span style="color:var(--rule)">/</span>
+        <span>歩行</span>
+        <span class="chip sage" style="margin-left:auto">新人</span>
+      </div>
+      <h3>歩行観察、どこから見る？— 新人セラピストのための30秒チェックリスト</h3>
+      <p>観察点が多すぎて迷子になる前に。矢状面→前額面→リズムの順で見る、シンプルな観察フロー。</p>
+      <div class="byline"><span>5分</span></div>
+    </div></div>
+    </div>
+  </section>
+
+  <!-- Voices section -->
+  <section class="sec" style="background:var(--paper); border-top:1px solid var(--rule)">
+    <div class="container">
+      <div class="sec-head">
+        <div>
+          <div class="kicker">VOICES / 質問箱</div>
+          <h2>患者さんの声やセラピストの臨床での悩み事など聞かせてください。</h2>
+        </div>
+        <span class="more" onclick="showPage(&#39;voices&#39;)">すべての声 →</span>
+      </div>
+      <div class="voices-grid" id="voices-preview-grid">
+    <div class="voice">
+      <div class="voice-header">
+        <span class="dot patient"></span>
+        <span>当事者</span>
+        <span style="margin-left:auto">2日前</span>
+      </div>
+      <div class="voice-body">左手が動かないまま退院して3ヶ月。ペットボトルを両手で開けるコツを、誰か教えてほしい。装具の洗い方も、実は誰にも聞けないまま。</div>
+      <div class="voice-foot">
+        <span>Mさん / 片麻痺 / 58歳</span>
+        <span class="vote"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.5-7-10a4 4 0 017-2.5A4 4 0 0119 10c0 5.5-7 10-7 10z"></path></svg>42</span>
+      </div>
+    </div>
+    <div class="voice">
+      <div class="voice-header">
+        <span class="dot therapist"></span>
+        <span>セラピスト</span>
+        <span style="margin-left:auto">3日前</span>
+      </div>
+      <div class="voice-body">急性期から回復期に移った患者さんの情報引き継ぎ、うちの病院ではまだFAXです。もっと良い方法を使っている施設の運用を知りたい。</div>
+      <div class="voice-foot">
+        <span>新人PT / 2年目</span>
+        <span class="vote"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.5-7-10a4 4 0 017-2.5A4 4 0 0119 10c0 5.5-7 10-7 10z"></path></svg>28</span>
+      </div>
+    </div>
+    <div class="voice">
+      <div class="voice-header">
+        <span class="dot patient"></span>
+        <span>当事者</span>
+        <span style="margin-left:auto">4日前</span>
+      </div>
+      <div class="voice-body">自主トレのプリントは貰ったけど、動画で見たい。一人だと本当にこれで合っているか不安になります。</div>
+      <div class="voice-foot">
+        <span>Kさん / 脳梗塞後 / 67歳</span>
+        <span class="vote"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.5-7-10a4 4 0 017-2.5A4 4 0 0119 10c0 5.5-7 10-7 10z"></path></svg>67</span>
+      </div>
+    </div></div>
+    </div>
+  </section>
+
+  <section class="stats-band">
+    <div class="container">
+      <div class="k"><div class="n" id="stat-band-members">11,402</div><div class="l">OT · PT members</div></div>
+      <div class="k"><div class="n" id="stat-band-articles">284</div><div class="l">evidence notes</div></div>
+      <div class="k"><div class="n" id="stat-band-voices">1,902</div><div class="l">voices collected</div></div>
+      <div class="k"><div class="n" id="stat-band-research">37</div><div class="l">research partners</div></div>
+    </div>
+  </section>
+
+  <div class="spacer-lg"></div>
+</div>
+
+<!-- ===== ARTICLES PAGE ===== -->
+<div id="page-articles" class="page">
+  <section class="articles-hero">
+    <div class="container">
+      <div class="mono-eyebrow">— ARCHIVE</div>
+      <h1>記事のアーカイブ</h1>
+      <p>エビデンス要約、現場の実践メモ、症例ベースの考察。記事を領域別に探せます。</p>
+    </div>
+  </section>
+  <div class="container">
+    <div class="filter-bar" id="articles-filter-bar">
+      <button class="filter-chip on" onclick="filterArticles(&#39;all&#39;, this)">すべて</button>
+      <button class="filter-chip" onclick="filterArticles(&#39;脳卒中&#39;, this)">脳卒中</button>
+      <button class="filter-chip" onclick="filterArticles(&#39;整形&#39;, this)">整形</button>
+      <button class="filter-chip" onclick="filterArticles(&#39;高齢者&#39;, this)">高齢者</button>
+      <button class="filter-chip" onclick="filterArticles(&#39;慢性期&#39;, this)">慢性期</button>
+      <button class="filter-chip" onclick="filterArticles(&#39;小児&#39;, this)">小児</button>
+      <button class="filter-chip" onclick="filterArticles(&#39;歩行&#39;, this)">歩行</button>
+      <button class="filter-chip" onclick="filterArticles(&#39;慢性痛&#39;, this)">慢性痛</button>
+      <button class="filter-chip" onclick="filterArticles(&#39;呼吸&#39;, this)">呼吸</button>
+      <div class="sort-group">
+        <span class="label">Sort</span>
+        <button class="filter-chip on">新着</button>
+        <button class="filter-chip">人気</button>
+      </div>
+    </div>
+    <!-- Ad Banner -->
+    <div class="ad-banner">広告掲載枠 — Advertisement</div>
+    <div class="article-list" id="article-list">
+    <div class="article-row" onclick="showArticle(&#39;stroke-upper-limb-2026&#39;)">
+      <div class="date-col">2026.04.12</div>
+      <div>
+        <div class="chips">
+          <span class="chip accent">脳卒中</span>
+          <span class="chip">エビデンス</span>
+          <span class="chip ochre">中堅</span>
+        </div>
+        <h3>CI療法は本当に効く？2026年系統的レビューから読み解く上肢機能回復の最適用量</h3>
+        <p>強度・頻度・環境因子を分解し、現場で使える具体的プロトコルに落とし込む。17RCT, n=912の最新メタ解析より。</p>
+      </div>
+      <div class="read-time">9分</div>
+    </div>
+    <div class="article-row" onclick="showArticle(&#39;fall-prevention-elderly&#39;)">
+      <div class="date-col">2026.04.08</div>
+      <div>
+        <div class="chips">
+          <span class="chip accent">高齢者</span>
+          <span class="chip">実践</span>
+          <span class="chip sage">新人</span>
+        </div>
+        <h3>転倒予防の「あと一歩」— バランス評価と介入を繋ぐ臨床フレーム</h3>
+        <p>BBS・TUG・FRTだけで満足していませんか。評価→目標→介入の筋を通すための、明日から使える5つの視点。</p>
+      </div>
+      <div class="read-time">7分</div>
+    </div>
+    <div class="article-row" onclick="showArticle(&#39;hand-therapy-ot&#39;)">
+      <div class="date-col">2026.04.05</div>
+      <div>
+        <div class="chips">
+          <span class="chip accent">整形</span>
+          <span class="chip">自主トレ</span>
+          <span class="chip sage">新人</span>
+        </div>
+        <h3>橈骨遠位端骨折後の自主トレ、処方時に外せない3つの問診</h3>
+        <p>「痛くない範囲で」では伝わらない。OTが現場で積み上げてきた、安全域を決めるための具体の聞き方。</p>
+      </div>
+      <div class="read-time">6分</div>
+    </div>
+    <div class="article-row" onclick="showArticle(&#39;motivation-chronic&#39;)">
+      <div class="date-col">2026.03.30</div>
+      <div>
+        <div class="chips">
+          <span class="chip accent">慢性期</span>
+          <span class="chip">心理</span>
+          <span class="chip ochre">中堅</span>
+        </div>
+        <h3>やる気が続かない患者さんへ — 自己決定理論で組み立て直す目標設定</h3>
+        <p>SDTの3つの心理的欲求を、リハの現場言語に翻訳する。モチベーションは「引き出す」ものではなく「設計する」もの。</p>
+      </div>
+      <div class="read-time">11分</div>
+    </div>
+    <div class="article-row" onclick="showArticle(&#39;gait-analysis-basics&#39;)">
+      <div class="date-col">2026.03.24</div>
+      <div>
+        <div class="chips">
+          <span class="chip accent">歩行</span>
+          <span class="chip">基礎</span>
+          <span class="chip sage">新人</span>
+        </div>
+        <h3>歩行観察、どこから見る？— 新人セラピストのための30秒チェックリスト</h3>
+        <p>観察点が多すぎて迷子になる前に。矢状面→前額面→リズムの順で見る、シンプルな観察フロー。</p>
+      </div>
+      <div class="read-time">5分</div>
+    </div></div>
+  </div>
+  <div class="spacer-lg"></div>
+</div>
+
+<!-- ===== ARTICLE DETAIL PAGE ===== -->
+<div id="page-detail" class="page">
+  <div class="detail">
+    <div class="container" id="detail-content">
+      <!-- 記事詳細はJSで動的に生成されます -->
+    </div>
+  </div>
+</div>
+
+<!-- ===== APPS PAGE ===== -->
+<div id="page-apps" class="page">
+  <section class="app-hero">
+    <div class="container">
+      <div class="mono-eyebrow">— リハメモ APPS / individual downloads</div>
+      <h1>症状に合うリハビリを</h1>
+      <p>高次脳機能障害の患者様に紙面でリハビリをしていませんか？<br>何度も印刷して提供していませんか？<br>リハビリ介入の結果を分析できていますか？<br><span style="font-size:0.85em;color:var(--ink-mute)">現在ダウンロード可能なアプリは2本。他の症状領域のアプリも随時追加していきます。</span></p>
+      <div class="app-ctas">
+        <button class="btn btn-primary">カタログを見る <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
+      </div>
+      <div class="app-stats">
+        <div><div class="stat-n" id="app-stat-total">2</div><div class="stat-l">公開中アプリ</div></div>
+        <div><div class="stat-n" id="app-stat-categories">6</div><div class="stat-l">対応カテゴリ</div></div>
+        <div><div class="stat-n" id="app-stat-coming">5</div><div class="stat-l">準備中カテゴリ</div></div>
+        <div><div class="stat-n">¥0</div><div class="stat-l">現在すべて無料</div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container" style="padding-top:40px">
+    <div class="ad-banner">広告掲載枠 — Advertisement</div>
+  </div>
+
+  <div id="apps-content">
+    <section class="symptom-section">
+      <div class="container">
+        <div class="symptom-grid">
+          <div>
+            <div class="symptom-label">Attention Deficit</div>
+            <h2 class="symptom-title">注意機能障害</h2>
+            <p class="symptom-desc">集中の持続、切り替え、分配。生活のあらゆる場面の土台になる機能。</p>
+            <div style="margin-top:20px;display:flex;gap:8px"><span class="chip accent">2本</span><span class="chip sage">無料</span></div>
+          </div>
+          <div class="app-cards">
+          
+            <div class="app-card">
+              <div class="app-card-header">
+                <span class="app-card-num">N° 01 · 初級 · 5分</span>
+                <span class="chip sage">無料</span>
+              </div>
+              <h3>キャンセレーション課題</h3>
+              <p>画面上の標的を探して消す、注意リハの定番課題。難易度・時間調整、反応時間ログの自動記録つき。</p>
+              <div class="app-card-footer">
+                
+                <span class="btn btn-sm btn-ghost" style="margin-left:auto;opacity:.5;cursor:default">準備中</span>
+              </div>
+            </div>
+            <div class="app-card">
+              <div class="app-card-header">
+                <span class="app-card-num">N° 02 · 中級 · 8分</span>
+                <span class="chip sage">無料</span>
+              </div>
+              <h3>視覚注意 中心+周辺</h3>
+              <p>中心課題を行いながら周辺視野の標的にも反応する、分配性注意の訓練。ヒートマップ解析つき。</p>
+              <div class="app-card-footer">
+                
+                <span class="btn btn-sm btn-ghost" style="margin-left:auto;opacity:.5;cursor:default">準備中</span>
+              </div>
+            </div>
+        </div>
+        </div>
+      </div>
+    </section>
+    <section class="symptom-section">
+      <div class="container">
+        <div class="symptom-grid">
+          <div>
+            <div class="symptom-label">Memory Deficit</div>
+            <h2 class="symptom-title">記憶障害</h2>
+            <p class="symptom-desc">ワーキングメモリから日常記憶まで。手がかり探索戦略の訓練も。</p>
+            <div style="margin-top:20px;display:flex;gap:8px"><span class="chip">準備中 / Coming soon</span></div>
+          </div>
+          <div class="coming-soon-box">
+          <div class="coming-soon-label">Coming Soon</div>
+          <p>このカテゴリのアプリは現在準備中です。臨床現場で使える形で整え次第、随時公開していきます。</p>
+        </div>
+        </div>
+      </div>
+    </section>
+    <section class="symptom-section">
+      <div class="container">
+        <div class="symptom-grid">
+          <div>
+            <div class="symptom-label">Unilateral Neglect</div>
+            <h2 class="symptom-title">半側空間無視</h2>
+            <p class="symptom-desc">左側への注意の偏り。段階的に中央〜左へ誘導するアプローチ。</p>
+            <div style="margin-top:20px;display:flex;gap:8px"><span class="chip">準備中 / Coming soon</span></div>
+          </div>
+          <div class="coming-soon-box">
+          <div class="coming-soon-label">Coming Soon</div>
+          <p>このカテゴリのアプリは現在準備中です。臨床現場で使える形で整え次第、随時公開していきます。</p>
+        </div>
+        </div>
+      </div>
+    </section>
+    <section class="symptom-section">
+      <div class="container">
+        <div class="symptom-grid">
+          <div>
+            <div class="symptom-label">Auditory &amp; Language</div>
+            <h2 class="symptom-title">聴覚・言語</h2>
+            <p class="symptom-desc">失語症、聴理解低下、電話や会議など聴覚ノイズ下の課題。</p>
+            <div style="margin-top:20px;display:flex;gap:8px"><span class="chip">準備中 / Coming soon</span></div>
+          </div>
+          <div class="coming-soon-box">
+          <div class="coming-soon-label">Coming Soon</div>
+          <p>このカテゴリのアプリは現在準備中です。臨床現場で使える形で整え次第、随時公開していきます。</p>
+        </div>
+        </div>
+      </div>
+    </section>
+    <section class="symptom-section">
+      <div class="container">
+        <div class="symptom-grid">
+          <div>
+            <div class="symptom-label">Executive Function</div>
+            <h2 class="symptom-title">遂行機能</h2>
+            <p class="symptom-desc">計画・抑制・柔軟性。退院後の生活再建に直結する領域。</p>
+            <div style="margin-top:20px;display:flex;gap:8px"><span class="chip">準備中 / Coming soon</span></div>
+          </div>
+          <div class="coming-soon-box">
+          <div class="coming-soon-label">Coming Soon</div>
+          <p>このカテゴリのアプリは現在準備中です。臨床現場で使える形で整え次第、随時公開していきます。</p>
+        </div>
+        </div>
+      </div>
+    </section>
+    <section class="symptom-section">
+      <div class="container">
+        <div class="symptom-grid">
+          <div>
+            <div class="symptom-label">Motor &amp; Physical</div>
+            <h2 class="symptom-title">運動・身体</h2>
+            <p class="symptom-desc">手指巧緻性、座位姿勢、バランス。動画ガイドつきの自主トレ。</p>
+            <div style="margin-top:20px;display:flex;gap:8px"><span class="chip">準備中 / Coming soon</span></div>
+          </div>
+          <div class="coming-soon-box">
+          <div class="coming-soon-label">Coming Soon</div>
+          <p>このカテゴリのアプリは現在準備中です。臨床現場で使える形で整え次第、随時公開していきます。</p>
+        </div>
+        </div>
+      </div>
+    </section></div>
+
+  <div class="spacer-lg"></div>
+</div>
+
+<!-- ===== VOICES PAGE ===== -->
+<div id="page-voices" class="page">
+  <div class="container">
+    <div class="voices-hero">
+      <div>
+        <div class="mono-eyebrow" style="font-family:var(--mono);font-size:11px;letter-spacing:0.22em;color:var(--accent-ink);text-transform:uppercase;margin-bottom:16px">— VOICES / 質問箱</div>
+        <h1>患者さんの声や<br>セラピストの臨床での<br>悩み事など聞かせてください。</h1>
+        <p class="sub" style="margin-top:16px">当事者が生活で困っていること。新人セラピストが言葉にできずにいる悩み。匿名で投稿された声は、研究協力施設によって定量化され、次のエビデンスの種になります。</p>
+      </div>
+      <div>
+        <div class="voice-composer">
+          <div class="cat-toggle">
+            <button class="on" onclick="this.classList.add(&#39;on&#39;);this.nextElementSibling.classList.remove(&#39;on&#39;)">当事者として投稿</button>
+            <button onclick="this.classList.add(&#39;on&#39;);this.previousElementSibling.classList.remove(&#39;on&#39;)">セラピストとして投稿</button>
+          </div>
+          <textarea placeholder="生活で困っていること、聞きたいこと — 何でも構いません。"></textarea>
+          <div class="actions">
+            <div class="hint">匿名投稿 · 研究利用への同意が必要</div>
+            <div style="display:flex;gap:8px">
+              <button class="btn btn-sm btn-ghost">下書き保存</button>
+              <button class="btn btn-sm btn-primary">投稿する</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="research-band">
+      <div>
+        <div style="font-family:var(--mono);font-size:11px;letter-spacing:0.2em;color:var(--accent-ink);text-transform:uppercase;margin-bottom:10px">— Research</div>
+        <div class="n">1,902</div>
+        <div class="l">voices analyzed</div>
+      </div>
+      <div>
+        <h3>投稿された声は、研究協力施設で匿名化・カテゴリ化され、次のエビデンスの種になります。</h3>
+        <p>現在、37施設の研究者が「当事者の語り」を質的・量的に分析中。分析レポートは月次で公開し、全投稿者に還元します。研究協力施設の申込や、分析結果を読みたい方は下のリンクから。</p>
+        <div style="display:flex;gap:10px">
+          <button class="btn btn-sm btn-primary">分析レポートを読む</button>
+          <button class="btn btn-sm btn-ghost">研究協力について</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="filter-bar" id="voices-filter-bar" style="border-top:1px solid var(--rule)">
+      <span class="label">Filter</span>
+      <button class="filter-chip on" onclick="filterVoices(&#39;all&#39;, this)">すべて</button>
+      <button class="filter-chip" onclick="filterVoices(&#39;patient&#39;, this)">当事者</button>
+      <button class="filter-chip" onclick="filterVoices(&#39;therapist&#39;, this)">セラピスト</button>
+      <span class="label" style="margin-left:24px">Sort</span>
+      <button class="filter-chip on">新着</button>
+      <button class="filter-chip">共感数</button>
+      <span id="voices-count" style="margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:0.14em;color:var(--ink-mute);text-transform:uppercase">7 voices</span>
+    </div>
+
+    <div class="voices-feed" id="voices-feed">
+    <div class="voice-full lg">
+      <div class="voice-header">
+        <span class="dot patient"></span>
+        <span>当事者</span>
+        <span style="margin-left:auto">2日前</span>
+      </div>
+      <div class="voice-body">左手が動かないまま退院して3ヶ月。ペットボトルを両手で開けるコツを、誰か教えてほしい。装具の洗い方も、実は誰にも聞けないまま。</div>
+      <div class="voice-foot">
+        <span>Mさん / 片麻痺 / 58歳</span>
+        <span class="vote"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.5-7-10a4 4 0 017-2.5A4 4 0 0119 10c0 5.5-7 10-7 10z"></path></svg>42</span>
+      </div>
+    </div>
+    <div class="voice-full">
+      <div class="voice-header">
+        <span class="dot therapist"></span>
+        <span>セラピスト</span>
+        <span style="margin-left:auto">3日前</span>
+      </div>
+      <div class="voice-body">急性期から回復期に移った患者さんの情報引き継ぎ、うちの病院ではまだFAXです。もっと良い方法を使っている施設の運用を知りたい。</div>
+      <div class="voice-foot">
+        <span>新人PT / 2年目</span>
+        <span class="vote"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.5-7-10a4 4 0 017-2.5A4 4 0 0119 10c0 5.5-7 10-7 10z"></path></svg>28</span>
+      </div>
+    </div>
+    <div class="voice-full lg">
+      <div class="voice-header">
+        <span class="dot patient"></span>
+        <span>当事者</span>
+        <span style="margin-left:auto">4日前</span>
+      </div>
+      <div class="voice-body">自主トレのプリントは貰ったけど、動画で見たい。一人だと本当にこれで合っているか不安になります。</div>
+      <div class="voice-foot">
+        <span>Kさん / 脳梗塞後 / 67歳</span>
+        <span class="vote"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.5-7-10a4 4 0 017-2.5A4 4 0 0119 10c0 5.5-7 10-7 10z"></path></svg>67</span>
+      </div>
+    </div>
+    <div class="voice-full">
+      <div class="voice-header">
+        <span class="dot therapist"></span>
+        <span>セラピスト</span>
+        <span style="margin-left:auto">5日前</span>
+      </div>
+      <div class="voice-body">認知症のある方への運動指導、どこまで声かけして良いか悩む。「さっき伝えたでしょ」と言いたくなる自分が嫌になります。</div>
+      <div class="voice-foot">
+        <span>新人OT / 1年目</span>
+        <span class="vote"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.5-7-10a4 4 0 017-2.5A4 4 0 0119 10c0 5.5-7 10-7 10z"></path></svg>51</span>
+      </div>
+    </div>
+    <div class="voice-full">
+      <div class="voice-header">
+        <span class="dot patient"></span>
+        <span>当事者</span>
+        <span style="margin-left:auto">6日前</span>
+      </div>
+      <div class="voice-body">退院後、装具の不具合で再受診したいけど予約が3週間先。その間、どうしていれば良いのかがわからない。</div>
+      <div class="voice-foot">
+        <span>Tさん / 装具使用 / 72歳</span>
+        <span class="vote"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.5-7-10a4 4 0 017-2.5A4 4 0 0119 10c0 5.5-7 10-7 10z"></path></svg>33</span>
+      </div>
+    </div>
+    <div class="voice-full lg">
+      <div class="voice-header">
+        <span class="dot therapist"></span>
+        <span>セラピスト</span>
+        <span style="margin-left:auto">1週間前</span>
+      </div>
+      <div class="voice-body">訪問リハで、家族からの「もっとできるようになるはず」という期待と、本人の意向がずれている。どう橋渡しすれば。</div>
+      <div class="voice-foot">
+        <span>中堅PT / 7年目</span>
+        <span class="vote"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.5-7-10a4 4 0 017-2.5A4 4 0 0119 10c0 5.5-7 10-7 10z"></path></svg>39</span>
+      </div>
+    </div>
+    <div class="voice-full lg">
+      <div class="voice-header">
+        <span class="dot patient"></span>
+        <span>当事者</span>
+        <span style="margin-left:auto">12日前</span>
+      </div>
+      <div class="voice-body">「頑張ってね」と言われるたびに、頑張っているのに伝わらない気がする。セラピストさんには、言葉を選んでほしい。</div>
+      <div class="voice-foot">
+        <span>Hさん / 回復期</span>
+        <span class="vote"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.5-7-10a4 4 0 017-2.5A4 4 0 0119 10c0 5.5-7 10-7 10z"></path></svg>89</span>
+      </div>
+    </div></div>
+  </div>
+  <div class="spacer-lg"></div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer class="foot">
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <div class="logo" style="cursor:default">
+          <span class="logo-name">リハメモ</span>
+          <span class="logo-dot"></span>
+        </div>
+        <p class="foot-desc">臨床の「あと一歩」を言語化する、OT・PTのための実践メモ。エビデンスと現場の手触りを、両方ちゃんと扱う場所。</p>
+      </div>
+      <div class="foot-col">
+        <h5>Read</h5>
+        <ul>
+          <li><a onclick="showPage(&#39;articles&#39;)">今週の新着</a></li>
+          <li><a onclick="showPage(&#39;articles&#39;)">人気記事</a></li>
+          <li><a onclick="showPage(&#39;articles&#39;)">カテゴリ一覧</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5>Practice</h5>
+        <ul>
+          <li><a onclick="showPage(&#39;articles&#39;)">リハビリ記事</a></li>
+          <li><a onclick="showPage(&#39;apps&#39;)">自主トレアプリ</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5>Community</h5>
+        <ul>
+          <li><a onclick="showPage(&#39;voices&#39;)">質問・声を投稿</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-info">
+      <div class="label">About / 運営</div>
+      <div class="bio-text">作業療法士（OT）歴11年・博士（保健学）課程修了。動作分析領域を専門に、国内外の査読付き論文を複数発表。臨床と研究の往復の中で感じた「現場で使える言葉」の不足を埋めるため、ひとりで運営しています。</div>
+      <a href="mailto:rihamemo96@gmail.com" class="email">rihamemo96@gmail.com</a>
+    </div>
+    <div class="foot-bottom">
+      <div>© 2026 リハメモ / Rehab Memo LLC.</div>
+      <div>利用規約 · プライバシー · 特定商取引法</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   ██████╗  █████╗ ████████╗ █████╗
+   ██╔══██╗██╔══██╗╚══██╔══╝██╔══██╗
+   ██║  ██║███████║   ██║   ███████║
+   ██║  ██║██╔══██║   ██║   ██╔══██║
+   ██████╔╝██║  ██║   ██║   ██║  ██║
+   ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝
+
+   ここを編集するだけでサイト全体が更新されます。
+   ============================================================ */
+
+
+/* ============================================================
+   【1】サイト基本情報
+   ============================================================ */
+const SITE = {
+  name:        'リハメモ',
+  tagline:     'OT・PTのための実践メモ',
+  description: '臨床の「あと一歩」を言語化する、OT・PTのための実践メモ。エビデンスと現場の手触りを、両方ちゃんと扱う場所。',
+  heroTitle:   '臨床の<em>「あと一歩」</em>を、<br>言葉にして持ち帰る。',
+  heroLead:    '新人から中堅まで、現場で悩むリハビリテーション従事者のための実践メモ。エビデンスと現場の手触りを、両方ちゃんと扱う場所をつくっています。',
+  heroVol:     'Vol. 24 — 2026年4月 / OT・PT向け',
+  email:       'rihamemo96@gmail.com',
+  copyright:   '© 2026 リハメモ / Rehab Memo LLC.',
+  aboutText:   '作業療法士（OT）歴11年・博士（保健学）課程修了。動作分析領域を専門に、国内外の査読付き論文を複数発表。臨床と研究の往復の中で感じた「現場で使える言葉」の不足を埋めるため、ひとりで運営しています。',
+  stats: {
+    members:  '11,402',
+    articles: '284',
+    voices:   '1,902',
+    research: '37',
+  },
+};
+
+
+/* ============================================================
+   【2】記事データ
+   ※ 記事を追加・編集するときはここを変更してください。
+   ※ body には HTML タグが使えます（<h2>, <p>, <blockquote>, <ul> など）。
+   ※ published: false にすると一覧・詳細から非表示になります。
+   ============================================================ */
+const ARTICLES = [
+
+  /* ── 記事テンプレート（コピーして使ってください） ──────────────
+  {
+    id:        'unique-id-here',   // URL的な識別子（英数字・ハイフン）
+    published: true,               // false にすると非表示
+    category:  'カテゴリ',         // 脳卒中 / 高齢者 / 整形 / 慢性期 / 小児 / 歩行 / 慢性痛 / 呼吸
+    tag:       'タグ',             // エビデンス / 実践 / 自主トレ / 心理 / 基礎 / 患者教育 / 感覚統合 / 急性期
+    level:     '新人',             // 新人 / 中堅
+    title:     '記事タイトル',
+    excerpt:   '一覧に表示される短い説明文。',
+    author:    '著者名',
+    authorRole:'PT / 回復期',
+    authorBio: '著者の簡単なプロフィール。',
+    date:      '2026.04.01',
+    readTime:  '8分',
+    citations: 5,
+    body: `
+      <p>本文の最初の段落。</p>
+      <h2>見出し</h2>
+      <p>本文の続き。</p>
+      <blockquote>引用文はここに。</blockquote>
+      <h3>小見出し</h3>
+      <ul>
+        <li>箇条書き1</li>
+        <li>箇条書き2</li>
+      </ul>
+    `,
+    toc: ['本稿の要約', 'セクション2', 'セクション3'],  // 目次（空配列 [] でも可）
+  },
+  ─────────────────────────────────────────────────── */
+
+  {
+    id:        'stroke-upper-limb-2026',
+    published: true,
+    category:  '脳卒中',
+    tag:       'エビデンス',
+    level:     '中堅',
+    title:     'CI療法は本当に効く？2026年系統的レビューから読み解く上肢機能回復の最適用量',
+    excerpt:   '強度・頻度・環境因子を分解し、現場で使える具体的プロトコルに落とし込む。17RCT, n=912の最新メタ解析より。',
+    author:    '佐藤 理子',
+    authorRole:'PT / 回復期',
+    authorBio: 'PT / 回復期。臨床経験12年。回復期病棟での勤務を経て、現在は訪問リハの現場で若手育成にも関わる。',
+    date:      '2026.04.12',
+    readTime:  '9分',
+    citations: 17,
+    toc: ['本稿の要約', '最新RCTの整理', '用量・頻度の具体', '臨床への落とし込み', '限界と今後'],
+    body: `
+      <p>上肢機能の回復を目指すCI療法（Constraint-Induced Movement Therapy）は、脳卒中後の介入として20年以上にわたり検討されてきた。2026年に発表された最新の系統的レビュー（17 RCT, n=912）を手がかりに、「結局、誰に・どの強度で・どの期間」使えば効果が出るのかを整理したい。</p>
+      <h2>本稿の要約</h2>
+      <p>中等度以上の麻痺（FMA-UE 20–50点）で、発症から3ヶ月〜18ヶ月の対象者に対しては、1日2時間以上 × 2週間以上の実施で、対照群と比較してFMA-UEで中央値+6.2点の改善が見られた。一方、重度麻痺（FMA-UE &lt;20点）では有意差が得られなかった。</p>
+      <blockquote>CI療法は「誰にでも効く万能薬」ではない。むしろ、適応を正しく見極めるためのフィルタをどう持つかが、臨床家の腕の見せ所。</blockquote>
+      <h2>用量・頻度の具体</h2>
+      <p>修正版CI療法（mCIMT）では、1日30分〜1時間の拘束+課題指向型練習を、週5日、2週間継続するプロトコルが最も再現性が高かった。ただし本邦の保険診療下では、この頻度を単独セラピストで担保することは難しい。患者さん本人による自主トレでの補完が前提となる。</p>
+      <h3>臨床判断のチェックリスト</h3>
+      <p>以下の4条件を満たす場合、mCIMTの導入を検討する価値がある：</p>
+      <ul>
+        <li>手関節背屈 20° 以上、手指伸展 10° 以上の随意運動がある</li>
+        <li>認知機能 MMSE 24点以上</li>
+        <li>家庭または施設内で1日2時間の練習時間が確保できる</li>
+        <li>本人の動機づけが保たれている</li>
+      </ul>
+      <h2>臨床への落とし込み</h2>
+      <p>現場では「条件を満たさないから適応外」で終わらせず、どの要素なら満たせるようになるかを一緒に設計することが重要。たとえば拘束時間を短くしつつ、自主トレアプリで練習量を補う「ハイブリッド型」の運用が、本邦の保険外来や訪問リハでは現実的な選択肢になる。</p>
+      <div class="refbox">
+        <h4>References</h4>
+        <ol>
+          <li>Tanaka et al. (2026). Upper-limb CIMT in chronic stroke: a systematic review. J Rehabil Med, 58(3), 234-248.</li>
+          <li>Kwakkel G. et al. (2025). Dose-response relationships in upper-limb training. Stroke, 56(12), 2891-2902.</li>
+          <li>日本脳卒中学会. (2025). 脳卒中治療ガイドライン2025 追補版.</li>
+        </ol>
+      </div>
+      <h2>限界と今後</h2>
+      <p>本稿で取り上げた研究群は、主に欧米の医療制度下で実施されたもの。本邦での再現性、特に回復期病棟での運用に関するデータは限定的であり、今後「リハメモ」では読者施設の運用データを匿名で集約し、症例ベースでの検討を進めたい。協力施設を募集中です。</p>
+    `,
+  },
+
+  {
+    id:        'fall-prevention-elderly',
+    published: true,
+    category:  '高齢者',
+    tag:       '実践',
+    level:     '新人',
+    title:     '転倒予防の「あと一歩」— バランス評価と介入を繋ぐ臨床フレーム',
+    excerpt:   'BBS・TUG・FRTだけで満足していませんか。評価→目標→介入の筋を通すための、明日から使える5つの視点。',
+    author:    '林 祐介',
+    authorRole:'PT / 訪問',
+    authorBio: 'PT / 訪問リハ。高齢者の転倒予防を専門に、地域での活動を続けている。',
+    date:      '2026.04.08',
+    readTime:  '7分',
+    citations: 9,
+    toc: [],
+    body: `<p>準備中です。記事本文をここに入力してください。</p>`,
+  },
+
+  {
+    id:        'hand-therapy-ot',
+    published: true,
+    category:  '整形',
+    tag:       '自主トレ',
+    level:     '新人',
+    title:     '橈骨遠位端骨折後の自主トレ、処方時に外せない3つの問診',
+    excerpt:   '「痛くない範囲で」では伝わらない。OTが現場で積み上げてきた、安全域を決めるための具体の聞き方。',
+    author:    '三浦 麻衣',
+    authorRole:'OT / 外来',
+    authorBio: 'OT / 外来。整形外来での自主トレ指導を専門とする。',
+    date:      '2026.04.05',
+    readTime:  '6分',
+    citations: 4,
+    toc: [],
+    body: `<p>準備中です。記事本文をここに入力してください。</p>`,
+  },
+
+  {
+    id:        'motivation-chronic',
+    published: true,
+    category:  '慢性期',
+    tag:       '心理',
+    level:     '中堅',
+    title:     'やる気が続かない患者さんへ — 自己決定理論で組み立て直す目標設定',
+    excerpt:   'SDTの3つの心理的欲求を、リハの現場言語に翻訳する。モチベーションは「引き出す」ものではなく「設計する」もの。',
+    author:    '大西 涼',
+    authorRole:'OT / 精神',
+    authorBio: 'OT / 精神科。心理的支援とリハビリテーションの融合を研究している。',
+    date:      '2026.03.30',
+    readTime:  '11分',
+    citations: 14,
+    toc: [],
+    body: `<p>準備中です。記事本文をここに入力してください。</p>`,
+  },
+
+  {
+    id:        'gait-analysis-basics',
+    published: true,
+    category:  '歩行',
+    tag:       '基礎',
+    level:     '新人',
+    title:     '歩行観察、どこから見る？— 新人セラピストのための30秒チェックリスト',
+    excerpt:   '観察点が多すぎて迷子になる前に。矢状面→前額面→リズムの順で見る、シンプルな観察フロー。',
+    author:    '中村 晃',
+    authorRole:'PT / 急性期',
+    authorBio: 'PT / 急性期病棟勤務。新人教育にも積極的に関わっている。',
+    date:      '2026.03.24',
+    readTime:  '5分',
+    citations: 6,
+    toc: [],
+    body: `<p>準備中です。記事本文をここに入力してください。</p>`,
+  },
+
+];  // ← ARTICLES ここまで
+
+
+/* ============================================================
+   【3】アプリデータ
+   ※ アプリを追加・編集するときはここを変更してください。
+   ============================================================ */
+const APPS = [
+
+  /* ── カテゴリテンプレート ──────────────────────────────────────
+  {
+    symptomEn:   'Symptom Name',   // 英語ラベル（小さく表示）
+    symptomJa:   '症状名',         // 日本語大見出し
+    description: '症状の説明文。',
+    apps: [
+      {
+        num:         'N° 01 · 初級 · 5分',
+        title:       'アプリ名',
+        description: 'アプリの説明。',
+        free:        true,
+        downloadUrl: '',   // ダウンロードURLを入れると有効になる。空文字 '' で「準備中」表示
+        demoUrl:     '',   // デモURLを入れると有効になる。空文字 '' で非表示
+      },
+    ],
+  },
+  ─────────────────────────────────────────────────── */
+
+  {
+    symptomEn:   'Attention Deficit',
+    symptomJa:   '注意機能障害',
+    description: '集中の持続、切り替え、分配。生活のあらゆる場面の土台になる機能。',
+    apps: [
+      {
+        num:         'N° 01 · 初級 · 5分',
+        title:       'キャンセレーション課題',
+        description: '画面上の標的を探して消す、注意リハの定番課題。難易度・時間調整、反応時間ログの自動記録つき。',
+        free:        true,
+        downloadUrl: '',   // ← ダウンロードURLをここに入力すると有効になります
+        demoUrl:     '',   // ← デモURLをここに入力すると表示されます
+      },
+      {
+        num:         'N° 02 · 中級 · 8分',
+        title:       '視覚注意 中心+周辺',
+        description: '中心課題を行いながら周辺視野の標的にも反応する、分配性注意の訓練。ヒートマップ解析つき。',
+        free:        true,
+        downloadUrl: '',   // ← ダウンロードURLをここに入力すると有効になります
+        demoUrl:     '',
+      },
+    ],
+  },
+
+  {
+    symptomEn:   'Memory Deficit',
+    symptomJa:   '記憶障害',
+    description: 'ワーキングメモリから日常記憶まで。手がかり探索戦略の訓練も。',
+    apps: [],   // ← 空のまま = Coming Soon 表示
+  },
+
+  {
+    symptomEn:   'Unilateral Neglect',
+    symptomJa:   '半側空間無視',
+    description: '左側への注意の偏り。段階的に中央〜左へ誘導するアプローチ。',
+    apps: [],
+  },
+
+  {
+    symptomEn:   'Auditory & Language',
+    symptomJa:   '聴覚・言語',
+    description: '失語症、聴理解低下、電話や会議など聴覚ノイズ下の課題。',
+    apps: [],
+  },
+
+  {
+    symptomEn:   'Executive Function',
+    symptomJa:   '遂行機能',
+    description: '計画・抑制・柔軟性。退院後の生活再建に直結する領域。',
+    apps: [],
+  },
+
+  {
+    symptomEn:   'Motor & Physical',
+    symptomJa:   '運動・身体',
+    description: '手指巧緻性、座位姿勢、バランス。動画ガイドつきの自主トレ。',
+    apps: [],
+  },
+
+];  // ← APPS ここまで
+
+
+/* ============================================================
+   【4】Voices（声・質問）データ
+   ============================================================ */
+const VOICES = [
+
+  /* ── Voiceテンプレート ────────────────────────────────────────
+  {
+    type:   'patient',    // patient（当事者）または therapist（セラピスト）
+    body:   '投稿内容のテキスト。',
+    from:   '投稿者の表示名（例：Mさん / 片麻痺 / 58歳）',
+    date:   '2日前',
+    likes:  42,
+    size:   'lg',         // 'lg' で大きく表示、'' で通常サイズ
+  },
+  ─────────────────────────────────────────────────── */
+
+  { type: 'patient',   body: '左手が動かないまま退院して3ヶ月。ペットボトルを両手で開けるコツを、誰か教えてほしい。装具の洗い方も、実は誰にも聞けないまま。',  from: 'Mさん / 片麻痺 / 58歳', date: '2日前',  likes: 42, size: 'lg' },
+  { type: 'therapist', body: '急性期から回復期に移った患者さんの情報引き継ぎ、うちの病院ではまだFAXです。もっと良い方法を使っている施設の運用を知りたい。',        from: '新人PT / 2年目',         date: '3日前',  likes: 28, size: '' },
+  { type: 'patient',   body: '自主トレのプリントは貰ったけど、動画で見たい。一人だと本当にこれで合っているか不安になります。',                                    from: 'Kさん / 脳梗塞後 / 67歳', date: '4日前',  likes: 67, size: 'lg' },
+  { type: 'therapist', body: '認知症のある方への運動指導、どこまで声かけして良いか悩む。「さっき伝えたでしょ」と言いたくなる自分が嫌になります。',                  from: '新人OT / 1年目',         date: '5日前',  likes: 51, size: '' },
+  { type: 'patient',   body: '退院後、装具の不具合で再受診したいけど予約が3週間先。その間、どうしていれば良いのかがわからない。',                                  from: 'Tさん / 装具使用 / 72歳', date: '6日前',  likes: 33, size: '' },
+  { type: 'therapist', body: '訪問リハで、家族からの「もっとできるようになるはず」という期待と、本人の意向がずれている。どう橋渡しすれば。',                        from: '中堅PT / 7年目',         date: '1週間前', likes: 39, size: 'lg' },
+  { type: 'patient',   body: '「頑張ってね」と言われるたびに、頑張っているのに伝わらない気がする。セラピストさんには、言葉を選んでほしい。',                        from: 'Hさん / 回復期',          date: '12日前', likes: 89, size: 'lg' },
+
+];  // ← VOICES ここまで
+
+
+/* ============================================================
+   以下はロジックです。通常は編集不要です。
+   ============================================================ */
+
+// ── ナビゲーション ──
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.main-nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  const navBtn = document.getElementById('nav-' + id);
+  if (navBtn) navBtn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'instant' });
+}
+
+// ── 記事詳細表示 ──
+function showArticle(id) {
+  const a = ARTICLES.find(x => x.id === id);
+  if (!a) return;
+
+  // 目次
+  const tocHtml = a.toc.length
+    ? '<ol>' + a.toc.map(t => `<li>${t}</li>`).join('') + '</ol>'
+    : '<p style="font-size:12px;color:var(--ink-mute)">目次なし</p>';
+
+  // 関連記事（同カテゴリ、自分以外 最大3件）
+  const related = ARTICLES.filter(x => x.published && x.id !== id && x.category === a.category).slice(0, 3);
+  const relatedHtml = related.length
+    ? related.map(r => `
+        <div class="related-item" onclick="showArticle('${r.id}')">
+          <div class="related-cat">${r.category}</div>
+          <div class="related-title">${r.title}</div>
+        </div>`).join('')
+    : '<p style="font-size:12px;color:var(--ink-mute)">関連記事なし</p>';
+
+  const levelClass = a.level === '新人' ? 'sage' : 'ochre';
+  const avatarChar = a.author ? a.author[0] : '?';
+
+  document.getElementById('detail-content').innerHTML = `
+    <button class="detail-back" onclick="showPage('articles')">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+      記事一覧へ戻る
+    </button>
+    <div class="detail-wrap">
+      <aside class="toc">
+        <div class="detail-aside">
+          <h5>Contents</h5>
+          ${tocHtml}
+          <div style="margin-top:28px;padding-top:16px;border-top:1px solid var(--rule)">
+            <h5>Share</h5>
+            <div style="display:flex;gap:8px;margin-top:8px">
+              <button class="btn btn-sm btn-ghost">X</button>
+              <button class="btn btn-sm btn-ghost">LINE</button>
+              <button class="btn btn-sm btn-ghost" onclick="navigator.clipboard.writeText(location.href)">COPY</button>
+            </div>
+          </div>
+        </div>
+      </aside>
+      <article>
+        <header class="detail-head">
+          <div class="detail-kicker">
+            <span class="chip accent">${a.category}</span>
+            <span class="chip">${a.tag}</span>
+            <span class="chip ${levelClass}">${a.level}</span>
+            <span style="font-family:var(--mono);font-size:10.5px;letter-spacing:0.14em;color:var(--ink-mute);text-transform:uppercase">${a.date} · ${a.readTime}読了</span>
+          </div>
+          <h1>${a.title}</h1>
+          <p class="detail-lead">${a.excerpt}</p>
+          <div class="detail-byline">
+            <button class="btn btn-sm btn-ghost">♡ いいね</button>
+            <button class="btn btn-sm btn-ghost">保存</button>
+          </div>
+        </header>
+        <div class="detail-hero-img"></div>
+        <div class="detail-body">${a.body}</div>
+        <div class="author-box">
+          <div class="avatar">${avatarChar}</div>
+          <div>
+            <div class="name">${a.author}</div>
+            <div class="bio">${a.authorBio}</div>
+          </div>
+          <button class="btn btn-sm" style="margin-left:auto;flex-shrink:0">フォロー</button>
+        </div>
+      </article>
+      <aside class="toc">
+        <div class="detail-aside">
+          <h5>Related</h5>
+          ${relatedHtml}
+          <div style="margin-top:24px;padding-top:16px;border-top:1px solid var(--rule)">
+            <div class="ad-banner" style="margin:0;padding:20px">広告枠</div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  `;
+
+  showPage('detail');
+}
+
+// ── 記事一覧レンダリング ──
+function renderArticles(articles) {
+  const list = document.getElementById('article-list');
+  if (!list) return;
+  const visible = articles.filter(a => a.published !== false);
+  if (visible.length === 0) {
+    list.innerHTML = '<div style="padding:60px 0;text-align:center;color:var(--ink-mute);font-family:var(--mono);font-size:12px;letter-spacing:0.16em">該当する記事がありません。フィルタを変更してください。</div>';
+    return;
+  }
+  list.innerHTML = visible.map(a => {
+    const levelClass = a.level === '新人' ? 'sage' : 'ochre';
+    return `
+    <div class="article-row" onclick="showArticle('${a.id}')">
+      <div class="date-col">${a.date}</div>
+      <div>
+        <div class="chips">
+          <span class="chip accent">${a.category}</span>
+          <span class="chip">${a.tag}</span>
+          <span class="chip ${levelClass}">${a.level}</span>
+        </div>
+        <h3>${a.title}</h3>
+        <p>${a.excerpt}</p>
+      </div>
+      <div class="read-time">${a.readTime}</div>
+    </div>`;
+  }).join('');
+}
+
+// ── カテゴリフィルター ──
+const CATEGORIES = ['脳卒中','整形','高齢者','慢性期','小児','歩行','慢性痛','呼吸'];
+function filterArticles(cat, btn) {
+  document.querySelectorAll('#articles-filter-bar .filter-chip').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  const filtered = cat === 'all' ? ARTICLES : ARTICLES.filter(a => a.category === cat);
+  renderArticles(filtered);
+}
+
+// ── アプリページレンダリング ──
+function renderApps() {
+  const container = document.getElementById('apps-content');
+  if (!container) return;
+  const totalApps = APPS.reduce((n, cat) => n + cat.apps.length, 0);
+  const totalComing = APPS.filter(c => c.apps.length === 0).length;
+
+  // Stats
+  document.getElementById('app-stat-total').textContent = totalApps;
+  document.getElementById('app-stat-categories').textContent = APPS.length;
+  document.getElementById('app-stat-coming').textContent = totalComing;
+
+  container.innerHTML = APPS.map(cat => {
+    const appsHtml = cat.apps.length === 0
+      ? `<div class="coming-soon-box">
+          <div class="coming-soon-label">Coming Soon</div>
+          <p>このカテゴリのアプリは現在準備中です。臨床現場で使える形で整え次第、随時公開していきます。</p>
+        </div>`
+      : `<div class="app-cards">
+          ${cat.apps.map(app => {
+            const downloadBtn = app.downloadUrl
+              ? `<a href="${app.downloadUrl}" class="btn btn-sm btn-primary" style="margin-left:auto" target="_blank" rel="noopener">無料ダウンロード <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v12m-5-5l5 5 5-5M4 20h16"/></svg></a>`
+              : `<span class="btn btn-sm btn-ghost" style="margin-left:auto;opacity:.5;cursor:default">準備中</span>`;
+            const demoBtn = app.demoUrl
+              ? `<a href="${app.demoUrl}" class="btn btn-sm btn-ghost" target="_blank" rel="noopener"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><polygon points="6 4 20 12 6 20 6 4" fill="currentColor" stroke="none"/></svg> デモ</a>`
+              : '';
+            return `
+            <div class="app-card">
+              <div class="app-card-header">
+                <span class="app-card-num">${app.num}</span>
+                ${app.free ? '<span class="chip sage">無料</span>' : ''}
+              </div>
+              <h3>${app.title}</h3>
+              <p>${app.description}</p>
+              <div class="app-card-footer">
+                ${demoBtn}
+                ${downloadBtn}
+              </div>
+            </div>`;
+          }).join('')}
+        </div>`;
+
+    const chipHtml = cat.apps.length > 0
+      ? `<span class="chip accent">${cat.apps.length}本</span><span class="chip sage">無料</span>`
+      : `<span class="chip">準備中 / Coming soon</span>`;
+
+    return `
+    <section class="symptom-section">
+      <div class="container">
+        <div class="symptom-grid">
+          <div>
+            <div class="symptom-label">${cat.symptomEn}</div>
+            <h2 class="symptom-title">${cat.symptomJa}</h2>
+            <p class="symptom-desc">${cat.description}</p>
+            <div style="margin-top:20px;display:flex;gap:8px">${chipHtml}</div>
+          </div>
+          ${appsHtml}
+        </div>
+      </div>
+    </section>`;
+  }).join('');
+}
+
+// ── Voicesレンダリング ──
+function renderVoices(filter) {
+  const feed = document.getElementById('voices-feed');
+  const previewGrid = document.getElementById('voices-preview-grid');
+  const heartIcon = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.5-7-10a4 4 0 017-2.5A4 4 0 0119 10c0 5.5-7 10-7 10z"/></svg>`;
+
+  const filtered = filter && filter !== 'all' ? VOICES.filter(v => v.type === filter) : VOICES;
+  const voiceHtml = (v, isPreview) => `
+    <div class="${isPreview ? 'voice' : 'voice-full' + (v.size === 'lg' ? ' lg' : '')}">
+      <div class="${isPreview ? 'voice-header' : 'voice-header'}">
+        <span class="dot ${v.type}"></span>
+        <span>${v.type === 'patient' ? '当事者' : 'セラピスト'}</span>
+        <span style="margin-left:auto">${v.date}</span>
+      </div>
+      <div class="${isPreview ? 'voice-body' : 'voice-body'}">${v.body}</div>
+      <div class="${isPreview ? 'voice-foot' : 'voice-foot'}">
+        <span>${v.from}</span>
+        <span class="vote">${heartIcon}${v.likes}</span>
+      </div>
+    </div>`;
+
+  if (feed) feed.innerHTML = filtered.map(v => voiceHtml(v, false)).join('');
+  if (previewGrid) previewGrid.innerHTML = VOICES.slice(0, 3).map(v => voiceHtml(v, true)).join('');
+
+  // count
+  const counter = document.getElementById('voices-count');
+  if (counter) counter.textContent = filtered.length + ' voices';
+}
+
+// ── Voicesフィルター ──
+function filterVoices(type, btn) {
+  document.querySelectorAll('#voices-filter-bar .filter-chip').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  renderVoices(type);
+}
+
+// ── ホームページのデータ反映 ──
+function renderHome() {
+  // Stats
+  const s = SITE.stats;
+  document.getElementById('stat-members').textContent = s.members;
+  document.getElementById('stat-articles').textContent = s.articles;
+  document.getElementById('stat-voices').textContent   = s.voices;
+  document.getElementById('stat-research').textContent = s.research;
+  document.getElementById('stat-band-members').textContent  = s.members;
+  document.getElementById('stat-band-articles').textContent = s.articles;
+  document.getElementById('stat-band-voices').textContent   = s.voices;
+  document.getElementById('stat-band-research').textContent = s.research;
+
+  // ヒーロータイトル
+  const ht = document.getElementById('hero-title');
+  if (ht) ht.innerHTML = SITE.heroTitle;
+  const hl = document.getElementById('hero-lead');
+  if (hl) hl.textContent = SITE.heroLead;
+  const hv = document.getElementById('hero-vol');
+  if (hv) hv.textContent = SITE.heroVol;
+
+  // Feature（最初の公開記事）
+  const feat = ARTICLES.find(a => a.published !== false);
+  if (feat) {
+    const lc = feat.level === '新人' ? 'sage' : 'ochre';
+    document.getElementById('feature-chips').innerHTML =
+      `<span class="chip accent">${feat.category}</span><span class="chip">${feat.tag}</span><span class="chip ${lc}">${feat.level}</span>`;
+    document.getElementById('feature-title').textContent = feat.title;
+    document.getElementById('feature-excerpt').textContent = feat.excerpt;
+    document.getElementById('feature-meta').textContent = feat.readTime + '読了 · 引用' + feat.citations + '件';
+    document.getElementById('feature-link').onclick = () => showArticle(feat.id);
+    document.getElementById('feature-title').onclick = () => showArticle(feat.id);
+  }
+
+  // Latest（最新6件）
+  const latest = ARTICLES.filter(a => a.published !== false).slice(0, 6);
+  document.getElementById('home-feed').innerHTML = latest.map(a => {
+    const lc = a.level === '新人' ? 'sage' : 'ochre';
+    return `
+    <div class="card" onclick="showArticle('${a.id}')">
+      <div class="meta">
+        <span>${a.date}</span>
+        <span style="color:var(--rule)">/</span>
+        <span>${a.category}</span>
+        <span class="chip ${lc}" style="margin-left:auto">${a.level}</span>
+      </div>
+      <h3>${a.title}</h3>
+      <p>${a.excerpt}</p>
+      <div class="byline"><span>${a.readTime}</span></div>
+    </div>`;
+  }).join('');
+}
+
+// ── 初期化 ──
+function init() {
+  renderHome();
+  renderArticles(ARTICLES);
+  renderApps();
+  renderVoices();
+}
+init();
+</script>
+
+<!-- ===================================================
+     管理パネル（⚙ 管理ボタンから開く）
+     =================================================== -->
+<style>
+/* オーバーレイ */
+#admin-overlay {
+  display: none;
+  position: fixed; inset: 0; z-index: 9999;
+  background: rgba(0,0,0,.55);
+  backdrop-filter: blur(4px);
+}
+#admin-overlay.open { display: flex; align-items: flex-start; justify-content: center; padding: 24px 16px; overflow-y: auto; }
+
+/* パネル本体 */
+#admin-panel {
+  background: #fff;
+  width: 100%; max-width: 780px;
+  border-radius: 8px;
+  box-shadow: 0 24px 64px rgba(0,0,0,.3);
+  overflow: hidden;
+  margin: auto;
+}
+.adm-header {
+  background: var(--ink);
+  color: #fff;
+  padding: 20px 28px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.adm-header h2 { font-family: var(--serif); font-size: 18px; font-weight: 700; }
+.adm-header p  { font-size: 12px; color: #888; margin-top: 2px; }
+.adm-close {
+  background: none; border: none; color: #aaa; font-size: 24px;
+  cursor: pointer; line-height: 1; padding: 4px;
+}
+.adm-close:hover { color: #fff; }
+
+/* タブ */
+.adm-tabs {
+  display: flex; border-bottom: 1px solid #e5e5e5;
+  background: #fafafa;
+}
+.adm-tab {
+  padding: 14px 22px; font-size: 13.5px; font-weight: 500;
+  background: none; border: none; cursor: pointer;
+  color: #888; border-bottom: 2px solid transparent;
+  transition: all .15s;
+}
+.adm-tab.active { color: var(--ink); border-bottom-color: var(--ink); background: #fff; }
+
+/* タブ本体 */
+.adm-body { padding: 28px; }
+.adm-section { display: none; }
+.adm-section.active { display: block; }
+
+/* リスト */
+.adm-list { margin-bottom: 20px; }
+.adm-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid #e5e5e5; border-radius: 6px;
+  margin-bottom: 8px; background: #fafafa;
+  font-size: 13.5px;
+}
+.adm-item .adm-title { flex: 1; font-weight: 500; line-height: 1.4; }
+.adm-item .adm-meta  { font-size: 11px; color: #aaa; white-space: nowrap; }
+.adm-item .adm-badge {
+  font-size: 10px; padding: 2px 7px; border-radius: 3px;
+  font-family: var(--mono); letter-spacing: .06em;
+  background: #e8f5ee; color: #1b4332;
+}
+.adm-item .adm-badge.draft { background: #f5f0e8; color: #7c5a1a; }
+.adm-btns { display: flex; gap: 6px; }
+.adm-btn {
+  font-size: 12px; padding: 5px 10px; border-radius: 4px;
+  border: 1px solid #ddd; background: #fff; cursor: pointer;
+  transition: all .15s;
+}
+.adm-btn:hover { background: #f0f0f0; }
+.adm-btn.danger { color: #c00; border-color: #fcc; }
+.adm-btn.danger:hover { background: #fff0f0; }
+.adm-btn.primary { background: var(--ink); color: #fff; border-color: var(--ink); }
+.adm-btn.primary:hover { background: #333; }
+
+/* フォーム */
+.adm-form { display: none; }
+.adm-form.open { display: block; }
+.adm-form-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 20px; padding-bottom: 16px;
+  border-bottom: 1px solid #e5e5e5;
+}
+.adm-form-header h3 { font-size: 15px; font-weight: 700; }
+.adm-field { margin-bottom: 16px; }
+.adm-field label {
+  display: block; font-size: 12px; font-weight: 600;
+  color: #555; margin-bottom: 6px; letter-spacing: .04em;
+}
+.adm-field input, .adm-field select, .adm-field textarea {
+  width: 100%; padding: 9px 12px;
+  border: 1px solid #ddd; border-radius: 5px;
+  font-size: 13.5px; font-family: var(--sans);
+  background: #fff; color: var(--ink);
+  transition: border .15s;
+}
+.adm-field input:focus, .adm-field select:focus, .adm-field textarea:focus {
+  outline: none; border-color: var(--accent);
+}
+.adm-field textarea { min-height: 120px; resize: vertical; line-height: 1.7; }
+.adm-field textarea.body-editor { min-height: 200px; font-family: monospace; font-size: 12.5px; }
+.adm-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.adm-row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+.adm-hint { font-size: 11px; color: #aaa; margin-top: 4px; }
+.adm-actions {
+  display: flex; gap: 10px; justify-content: flex-end;
+  margin-top: 24px; padding-top: 20px; border-top: 1px solid #e5e5e5;
+}
+.adm-new-btn {
+  width: 100%; padding: 12px;
+  border: 1.5px dashed #ccc; border-radius: 6px;
+  background: none; cursor: pointer; font-size: 13.5px; color: #888;
+  transition: all .15s;
+}
+.adm-new-btn:hover { border-color: var(--accent); color: var(--accent-ink); background: #f0faf4; }
+
+/* アプリURL入力エリア */
+.adm-url-row { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; }
+.adm-url-row input { flex: 1; }
+.adm-url-row .adm-url-label { font-size: 12px; color: #888; white-space: nowrap; min-width: 110px; }
+.adm-url-status { font-size: 11px; margin-top: 4px; }
+.adm-url-status.ok  { color: #2d6a4f; }
+.adm-url-status.ng  { color: #aaa; }
+
+/* 保存通知 */
+.adm-toast {
+  position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%);
+  background: var(--ink); color: #fff;
+  padding: 12px 24px; border-radius: 6px;
+  font-size: 13.5px; z-index: 99999;
+  opacity: 0; pointer-events: none;
+  transition: opacity .3s;
+}
+.adm-toast.show { opacity: 1; }
+</style>
+
+<!-- トースト通知 -->
+<div class="adm-toast" id="adm-toast"></div>
+
+<!-- 管理パネル オーバーレイ -->
+<div id="admin-overlay" onclick="closeAdminIfBg(event)">
+  <div id="admin-panel">
+
+    <!-- ヘッダー -->
+    <div class="adm-header">
+      <div>
+        <h2>⚙ リハメモ 管理パネル</h2>
+        <p>記事・アプリの追加・編集はここから。変更はすぐにサイトに反映されます。</p>
+      </div>
+      <button class="adm-close" onclick="closeAdmin()">✕</button>
+    </div>
+
+    <!-- タブ -->
+    <div class="adm-tabs">
+      <button class="adm-tab active" onclick="admTab(&#39;articles&#39;, this)">📝 記事</button>
+      <button class="adm-tab" onclick="admTab(&#39;apps&#39;, this)">📱 アプリ</button>
+    </div>
+
+    <div class="adm-body">
+
+      <!-- ========== 記事タブ ========== -->
+      <div class="adm-section active" id="adm-articles">
+        <div id="adm-article-list"></div>
+        <button class="adm-new-btn" onclick="admArticleNew()">＋ 新しい記事を追加する</button>
+
+        <!-- 記事フォーム -->
+        <div class="adm-form" id="adm-article-form">
+          <div class="adm-form-header">
+            <h3 id="adm-article-form-title">記事を編集</h3>
+            <button class="adm-btn" onclick="admArticleFormClose()">← 一覧に戻る</button>
+          </div>
+
+          <input type="hidden" id="af-id">
+
+          <div class="adm-field">
+            <label>タイトル *</label>
+            <input type="text" id="af-title" placeholder="記事のタイトルを入力">
+          </div>
+
+          <div class="adm-row">
+            <div class="adm-field">
+              <label>カテゴリ *</label>
+              <select id="af-category">
+                <option>脳卒中</option><option>高齢者</option><option>整形</option>
+                <option>慢性期</option><option>小児</option><option>歩行</option>
+                <option>慢性痛</option><option>呼吸</option>
+              </select>
+            </div>
+            <div class="adm-field">
+              <label>タグ</label>
+              <input type="text" id="af-tag" placeholder="例：エビデンス、実践">
+            </div>
+          </div>
+
+          <div class="adm-row3">
+            <div class="adm-field">
+              <label>対象レベル</label>
+              <select id="af-level"><option>新人</option><option>中堅</option></select>
+            </div>
+            <div class="adm-field">
+              <label>読了時間</label>
+              <input type="text" id="af-readtime" placeholder="例：8分">
+            </div>
+            <div class="adm-field">
+              <label>公開日</label>
+              <input type="text" id="af-date" placeholder="例：2026.05.01">
+            </div>
+          </div>
+
+          <div class="adm-row">
+            <div class="adm-field">
+              <label>著者名</label>
+              <input type="text" id="af-author" placeholder="例：山田 太郎">
+            </div>
+            <div class="adm-field">
+              <label>著者の役職</label>
+              <input type="text" id="af-authorrole" placeholder="例：PT / 回復期">
+            </div>
+          </div>
+
+          <div class="adm-field">
+            <label>著者プロフィール</label>
+            <input type="text" id="af-authorbio" placeholder="例：PT / 回復期。臨床経験12年。">
+          </div>
+
+          <div class="adm-field">
+            <label>要約（一覧に表示される説明文）*</label>
+            <textarea id="af-excerpt" rows="3" placeholder="記事の内容を1〜2文で説明してください。"></textarea>
+          </div>
+
+          <div class="adm-field">
+            <label>本文（HTMLが使えます）</label>
+            <textarea class="body-editor" id="af-body" placeholder="&lt;p&gt;本文をここに入力してください。&lt;/p&gt;
+&lt;h2&gt;見出し&lt;/h2&gt;
+&lt;p&gt;続きの文章。&lt;/p&gt;"></textarea>
+            <p class="adm-hint">使えるタグ： &lt;p&gt; 段落　&lt;h2&gt;&lt;h3&gt; 見出し　&lt;ul&gt;&lt;li&gt; 箇条書き　&lt;blockquote&gt; 引用</p>
+          </div>
+
+          <div class="adm-field">
+            <label>目次（改行で区切って入力）</label>
+            <textarea id="af-toc" rows="4" placeholder="例：
+本稿の要約
+エビデンスの整理
+臨床への落とし込み"></textarea>
+          </div>
+
+          <div class="adm-field">
+            <label>公開状態</label>
+            <select id="af-published">
+              <option value="true">公開中</option>
+              <option value="false">下書き（非表示）</option>
+            </select>
+          </div>
+
+          <div class="adm-actions">
+            <button class="adm-btn danger" id="af-delete-btn" onclick="admArticleDelete()">削除</button>
+            <button class="adm-btn" onclick="admArticleFormClose()">キャンセル</button>
+            <button class="adm-btn primary" onclick="admArticleSave()">保存して反映</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== アプリタブ ========== -->
+      <div class="adm-section" id="adm-apps">
+        <div id="adm-app-list"></div>
+        <button class="adm-new-btn" onclick="admAppNew()">＋ 新しいアプリカテゴリを追加する</button>
+
+        <!-- アプリフォーム -->
+        <div class="adm-form" id="adm-app-form">
+          <div class="adm-form-header">
+            <h3 id="adm-app-form-title">アプリを編集</h3>
+            <button class="adm-btn" onclick="admAppFormClose()">← 一覧に戻る</button>
+          </div>
+
+          <input type="hidden" id="appf-cat-idx">
+
+          <div class="adm-row">
+            <div class="adm-field">
+              <label>症状名（日本語）*</label>
+              <input type="text" id="appf-ja" placeholder="例：注意機能障害">
+            </div>
+            <div class="adm-field">
+              <label>症状名（英語）</label>
+              <input type="text" id="appf-en" placeholder="例：Attention Deficit">
+            </div>
+          </div>
+
+          <div class="adm-field">
+            <label>症状の説明</label>
+            <input type="text" id="appf-desc" placeholder="例：集中の持続、切り替え、分配。">
+          </div>
+
+          <div class="adm-field">
+            <label>アプリ一覧</label>
+            <div id="appf-apps-list"></div>
+            <button class="adm-new-btn" style="margin-top:8px" onclick="admAppAddItem()">＋ アプリを追加</button>
+          </div>
+
+          <div class="adm-actions">
+            <button class="adm-btn danger" onclick="admAppDelete()">このカテゴリを削除</button>
+            <button class="adm-btn" onclick="admAppFormClose()">キャンセル</button>
+            <button class="adm-btn primary" onclick="admAppSave()">保存して反映</button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /adm-body -->
+  </div><!-- /admin-panel -->
+</div><!-- /admin-overlay -->
+
+<script>
+/* ===== 管理パネル ===== */
+
+function openAdmin() {
+  document.getElementById('admin-overlay').classList.add('open');
+  admRenderArticleList();
+  admRenderAppList();
+}
+function closeAdmin() {
+  document.getElementById('admin-overlay').classList.remove('open');
+}
+function closeAdminIfBg(e) {
+  if (e.target === document.getElementById('admin-overlay')) closeAdmin();
+}
+
+// タブ切替
+function admTab(name, btn) {
+  document.querySelectorAll('.adm-tab').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.adm-section').forEach(s => s.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('adm-' + name).classList.add('active');
+}
+
+// トースト
+function admToast(msg) {
+  const t = document.getElementById('adm-toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+/* ===========================
+   記事管理
+   =========================== */
+function admRenderArticleList() {
+  const el = document.getElementById('adm-article-list');
+  if (!ARTICLES.length) { el.innerHTML = '<p style="color:#aaa;font-size:13px;margin-bottom:16px">記事がありません。下のボタンから追加してください。</p>'; return; }
+  el.innerHTML = ARTICLES.map((a, i) => `
+    <div class="adm-item">
+      <div class="adm-title">
+        ${a.title}
+        <div style="font-size:11px;color:#aaa;margin-top:3px">${a.category} · ${a.date} · ${a.readTime}</div>
+      </div>
+      <span class="adm-badge ${a.published === false ? 'draft' : ''}">${a.published === false ? '下書き' : '公開中'}</span>
+      <div class="adm-btns">
+        <button class="adm-btn" onclick="admArticleEdit(${i})">編集</button>
+      </div>
+    </div>`).join('');
+}
+
+function admArticleNew() {
+  document.getElementById('adm-article-form-title').textContent = '新しい記事を追加';
+  document.getElementById('af-delete-btn').style.display = 'none';
+  document.getElementById('af-id').value = '';
+  document.getElementById('af-title').value = '';
+  document.getElementById('af-category').value = '脳卒中';
+  document.getElementById('af-tag').value = '';
+  document.getElementById('af-level').value = '新人';
+  document.getElementById('af-readtime').value = '';
+  document.getElementById('af-date').value = new Date().toLocaleDateString('ja-JP', {year:'numeric',month:'2-digit',day:'2-digit'}).replace(/\//g,'.');
+  document.getElementById('af-author').value = '';
+  document.getElementById('af-authorrole').value = '';
+  document.getElementById('af-authorbio').value = '';
+  document.getElementById('af-excerpt').value = '';
+  document.getElementById('af-body').value = '<p>本文をここに入力してください。</p>';
+  document.getElementById('af-toc').value = '';
+  document.getElementById('af-published').value = 'true';
+  document.getElementById('adm-article-list').style.display = 'none';
+  document.querySelector('.adm-new-btn').style.display = 'none';
+  document.getElementById('adm-article-form').classList.add('open');
+}
+
+function admArticleEdit(idx) {
+  const a = ARTICLES[idx];
+  document.getElementById('adm-article-form-title').textContent = '記事を編集';
+  document.getElementById('af-delete-btn').style.display = '';
+  document.getElementById('af-id').value = idx;
+  document.getElementById('af-title').value = a.title;
+  document.getElementById('af-category').value = a.category;
+  document.getElementById('af-tag').value = a.tag || '';
+  document.getElementById('af-level').value = a.level || '新人';
+  document.getElementById('af-readtime').value = a.readTime || '';
+  document.getElementById('af-date').value = a.date || '';
+  document.getElementById('af-author').value = a.author || '';
+  document.getElementById('af-authorrole').value = a.authorRole || '';
+  document.getElementById('af-authorbio').value = a.authorBio || '';
+  document.getElementById('af-excerpt').value = a.excerpt || '';
+  document.getElementById('af-body').value = (a.body || '').trim();
+  document.getElementById('af-toc').value = (a.toc || []).join('\n');
+  document.getElementById('af-published').value = a.published === false ? 'false' : 'true';
+  document.getElementById('adm-article-list').style.display = 'none';
+  document.querySelector('.adm-new-btn').style.display = 'none';
+  document.getElementById('adm-article-form').classList.add('open');
+}
+
+function admArticleFormClose() {
+  document.getElementById('adm-article-form').classList.remove('open');
+  document.getElementById('adm-article-list').style.display = '';
+  document.querySelector('#adm-articles .adm-new-btn').style.display = '';
+  admRenderArticleList();
+}
+
+function admArticleSave() {
+  const title = document.getElementById('af-title').value.trim();
+  if (!title) { alert('タイトルを入力してください。'); return; }
+
+  const idxVal = document.getElementById('af-id').value;
+  const toc = document.getElementById('af-toc').value.trim().split('\n').filter(s => s.trim());
+
+  const data = {
+    id:         idxVal !== '' ? ARTICLES[parseInt(idxVal)].id : 'article-' + Date.now(),
+    published:  document.getElementById('af-published').value === 'true',
+    category:   document.getElementById('af-category').value,
+    tag:        document.getElementById('af-tag').value.trim(),
+    level:      document.getElementById('af-level').value,
+    title:      title,
+    excerpt:    document.getElementById('af-excerpt').value.trim(),
+    author:     document.getElementById('af-author').value.trim(),
+    authorRole: document.getElementById('af-authorrole').value.trim(),
+    authorBio:  document.getElementById('af-authorbio').value.trim(),
+    date:       document.getElementById('af-date').value.trim(),
+    readTime:   document.getElementById('af-readtime').value.trim(),
+    citations:  0,
+    toc:        toc,
+    body:       document.getElementById('af-body').value,
+  };
+
+  if (idxVal !== '') {
+    ARTICLES[parseInt(idxVal)] = data;
+  } else {
+    ARTICLES.unshift(data);
+  }
+
+  renderHome();
+  renderArticles(ARTICLES);
+  admArticleFormClose();
+  admToast('✓ 保存しました！サイトに反映されました。');
+}
+
+function admArticleDelete() {
+  const idx = parseInt(document.getElementById('af-id').value);
+  if (!confirm('この記事を削除しますか？')) return;
+  ARTICLES.splice(idx, 1);
+  renderHome();
+  renderArticles(ARTICLES);
+  admArticleFormClose();
+  admToast('🗑 記事を削除しました。');
+}
+
+/* ===========================
+   アプリ管理
+   =========================== */
+function admRenderAppList() {
+  const el = document.getElementById('adm-app-list');
+  if (!APPS.length) { el.innerHTML = '<p style="color:#aaa;font-size:13px;margin-bottom:16px">カテゴリがありません。</p>'; return; }
+  el.innerHTML = APPS.map((cat, i) => `
+    <div class="adm-item">
+      <div class="adm-title">
+        ${cat.symptomJa}
+        <div style="font-size:11px;color:#aaa;margin-top:3px">${cat.symptomEn} · アプリ ${cat.apps.length}本</div>
+      </div>
+      <span class="adm-badge ${cat.apps.length === 0 ? 'draft' : ''}">${cat.apps.length === 0 ? '準備中' : '公開中'}</span>
+      <div class="adm-btns">
+        <button class="adm-btn" onclick="admAppEdit(${i})">編集</button>
+      </div>
+    </div>`).join('');
+}
+
+function admAppNew() {
+  document.getElementById('adm-app-form-title').textContent = '新しいカテゴリを追加';
+  document.getElementById('appf-cat-idx').value = '';
+  document.getElementById('appf-ja').value = '';
+  document.getElementById('appf-en').value = '';
+  document.getElementById('appf-desc').value = '';
+  admRenderAppItems([]);
+  document.getElementById('adm-app-list').style.display = 'none';
+  document.querySelector('#adm-apps .adm-new-btn').style.display = 'none';
+  document.getElementById('adm-app-form').classList.add('open');
+}
+
+function admAppEdit(idx) {
+  const cat = APPS[idx];
+  document.getElementById('adm-app-form-title').textContent = 'カテゴリを編集';
+  document.getElementById('appf-cat-idx').value = idx;
+  document.getElementById('appf-ja').value = cat.symptomJa;
+  document.getElementById('appf-en').value = cat.symptomEn;
+  document.getElementById('appf-desc').value = cat.description;
+  admRenderAppItems(cat.apps);
+  document.getElementById('adm-app-list').style.display = 'none';
+  document.querySelector('#adm-apps .adm-new-btn').style.display = 'none';
+  document.getElementById('adm-app-form').classList.add('open');
+}
+
+function admRenderAppItems(apps) {
+  const el = document.getElementById('appf-apps-list');
+  el.innerHTML = apps.map((app, i) => admAppItemHtml(app, i)).join('');
+}
+
+function admAppItemHtml(app, i) {
+  const dlStatus = app.downloadUrl ? `<span class="adm-url-status ok">✓ URL設定済み</span>` : `<span class="adm-url-status ng">未設定（準備中と表示）</span>`;
+  return `
+  <div class="adm-item" id="appf-item-${i}" style="flex-direction:column;align-items:stretch;gap:10px">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <strong style="font-size:13px">アプリ ${i+1}</strong>
+      <button class="adm-btn danger" onclick="admAppRemoveItem(${i})">削除</button>
+    </div>
+    <div class="adm-row">
+      <div class="adm-field" style="margin:0">
+        <label>アプリ名</label>
+        <input type="text" id="appf-title-${i}" value="${app.title || ''}">
+      </div>
+      <div class="adm-field" style="margin:0">
+        <label>ラベル（難易度・時間）</label>
+        <input type="text" id="appf-num-${i}" value="${app.num || ''}" placeholder="例：N° 01 · 初級 · 5分">
+      </div>
+    </div>
+    <div class="adm-field" style="margin:0">
+      <label>説明文</label>
+      <textarea id="appf-desc-${i}" rows="2">${app.description || ''}</textarea>
+    </div>
+    <div class="adm-field" style="margin:0">
+      <label>ダウンロードURL</label>
+      <input type="text" id="appf-url-${i}" value="${app.downloadUrl || ''}" placeholder="https://... （空白のままだと「準備中」ボタンになります）">
+      ${dlStatus}
+    </div>
+    <div class="adm-field" style="margin:0">
+      <label>デモURL（任意）</label>
+      <input type="text" id="appf-demo-${i}" value="${app.demoUrl || ''}" placeholder="https://...">
+    </div>
+  </div>`;
+}
+
+let _tempApps = [];
+function admAppAddItem() {
+  const count = document.querySelectorAll('[id^="appf-item-"]').length;
+  const el = document.getElementById('appf-apps-list');
+  const div = document.createElement('div');
+  div.innerHTML = admAppItemHtml({ title:'', num:'', description:'', downloadUrl:'', demoUrl:'', free:true }, count);
+  el.appendChild(div.firstElementChild);
+}
+
+function admAppRemoveItem(i) {
+  document.getElementById('appf-item-' + i)?.remove();
+  // 残りを再番号付け
+  document.querySelectorAll('[id^="appf-item-"]').forEach((el, newI) => {
+    el.id = 'appf-item-' + newI;
+    el.querySelectorAll('[id]').forEach(child => {
+      child.id = child.id.replace(/-\d+$/, '-' + newI);
+    });
+  });
+}
+
+function admAppFormClose() {
+  document.getElementById('adm-app-form').classList.remove('open');
+  document.getElementById('adm-app-list').style.display = '';
+  document.querySelector('#adm-apps .adm-new-btn').style.display = '';
+  admRenderAppList();
+}
+
+function admAppSave() {
+  const ja = document.getElementById('appf-ja').value.trim();
+  if (!ja) { alert('症状名（日本語）を入力してください。'); return; }
+
+  const items = [];
+  document.querySelectorAll('[id^="appf-item-"]').forEach((el, i) => {
+    items.push({
+      title:       document.getElementById('appf-title-' + i)?.value.trim() || '',
+      num:         document.getElementById('appf-num-' + i)?.value.trim() || '',
+      description: document.getElementById('appf-desc-' + i)?.value.trim() || '',
+      downloadUrl: document.getElementById('appf-url-' + i)?.value.trim() || '',
+      demoUrl:     document.getElementById('appf-demo-' + i)?.value.trim() || '',
+      free:        true,
+    });
+  });
+
+  const data = {
+    symptomJa:   ja,
+    symptomEn:   document.getElementById('appf-en').value.trim(),
+    description: document.getElementById('appf-desc').value.trim(),
+    apps:        items,
+  };
+
+  const idxVal = document.getElementById('appf-cat-idx').value;
+  if (idxVal !== '') {
+    APPS[parseInt(idxVal)] = data;
+  } else {
+    APPS.push(data);
+  }
+
+  renderApps();
+  admAppFormClose();
+  admToast('✓ 保存しました！サイトに反映されました。');
+}
+
+function admAppDelete() {
+  const idx = parseInt(document.getElementById('appf-cat-idx').value);
+  if (!confirm('このカテゴリを削除しますか？')) return;
+  APPS.splice(idx, 1);
+  renderApps();
+  admAppFormClose();
+  admToast('🗑 削除しました。');
+}
+</script>
+
+
+</body></html>
