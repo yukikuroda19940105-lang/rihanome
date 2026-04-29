@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0045)file:///C:/Users/yukik/Downloads/index_3.html -->
+<!-- saved from url=(0045)file:///C:/Users/yukik/Downloads/index_4.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -1164,9 +1164,8 @@ body {
         <div class="art"><div class="num-big">01</div></div>
         <div>
           <div class="feature-chips" id="feature-chips"><span class="chip accent">脳卒中</span><span class="chip">エビデンス</span><span class="chip ochre">新人　中堅</span></div>
-          <h2 id="feature-title" onclick="" style="cursor:pointer">脳卒中患者の下衣を上げる動作の分析 — 介助量別の運動特性と臨床への応用</h2>
-          <p id="feature-excerpt">介助・監視・自立の3群で下衣を上げる動作の運動特性はどう違うのか。
-各時期において臨床場面で優先すべき介入ポイントを解説する。</p>
+          <h2 id="feature-title" onclick="" style="cursor:pointer">「リハビリとは何か」を問い直す —有効なリハビリの特徴を示した研究</h2>
+          <p id="feature-excerpt">「リハビリとは何か」に明確な答えを持てているセラピストは少ない。系統的レビューから導いた経験的定義を手がかりに、現場の実践を問い直す。</p>
           <div class="feature-meta">
             <span class="mono-label" id="feature-meta">読了 · 引用0件</span>
             <button class="btn btn-sm" id="feature-link" style="margin-left:auto">続きを読む <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
@@ -1194,6 +1193,17 @@ body {
     </div>
     <div class="container">
       <div class="feed" id="home-feed">
+    <div class="card" onclick="showArticle(&#39;u0c0mn6i9asr&#39;)">
+      <div class="meta">
+        <span>2026.04.29</span>
+        <span style="color:var(--rule)">/</span>
+        <span>脳卒中</span>
+        <span class="chip ochre" style="margin-left:auto">新人　中堅</span>
+      </div>
+      <h3>「リハビリとは何か」を問い直す —有効なリハビリの特徴を示した研究</h3>
+      <p>「リハビリとは何か」に明確な答えを持てているセラピストは少ない。系統的レビューから導いた経験的定義を手がかりに、現場の実践を問い直す。</p>
+      <div class="byline"><span></span></div>
+    </div>
     <div class="card" onclick="showArticle(&#39;c_8ymj6wh&#39;)">
       <div class="meta">
         <span>2026.04.28</span>
@@ -1300,6 +1310,19 @@ body {
     <!-- Ad Banner -->
     <div class="ad-banner">広告掲載枠 — Advertisement</div>
     <div class="article-list" id="article-list">
+    <div class="article-row" onclick="showArticle(&#39;u0c0mn6i9asr&#39;)">
+      <div class="date-col">2026.04.29</div>
+      <div>
+        <div class="chips">
+          <span class="chip accent">脳卒中</span>
+          <span class="chip">エビデンス</span>
+          <span class="chip ochre">新人　中堅</span>
+        </div>
+        <h3>「リハビリとは何か」を問い直す —有効なリハビリの特徴を示した研究</h3>
+        <p>「リハビリとは何か」に明確な答えを持てているセラピストは少ない。系統的レビューから導いた経験的定義を手がかりに、現場の実践を問い直す。</p>
+      </div>
+      <div class="read-time"></div>
+    </div>
     <div class="article-row" onclick="showArticle(&#39;c_8ymj6wh&#39;)">
       <div class="date-col">2026.04.28</div>
       <div>
@@ -2631,6 +2654,16 @@ init();
 /* ===== 管理パネル ===== */
 
 function openAdmin() {
+  const ADMIN_PASS = 'Yk19940105';
+  if (sessionStorage.getItem('adm_auth') !== '1') {
+    const input = prompt('管理パスワードを入力してください：');
+    if (input === null) return;
+    if (input !== ADMIN_PASS) {
+      alert('パスワードが違います。');
+      return;
+    }
+    sessionStorage.setItem('adm_auth', '1');
+  }
   document.getElementById('admin-overlay').classList.add('open');
   admRenderArticleList();
   admRenderAppList();
