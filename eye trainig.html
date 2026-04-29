@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<!-- saved from url=(0196)file:///C:/Users/yukik/Downloads/%E8%A6%96%E8%A6%9A%E6%B3%A8%E6%84%8F%E8%AA%B2%E9%A1%8Cv3_%E5%B1%A5%E6%AD%B4%E3%83%BB%E3%83%92%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%97%E4%BB%98%E3%81%8D_3.html -->
+<html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>視覚注意課題（周辺＋中心）</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Hiragino Sans','Yu Gothic',sans-serif;background:#1a1a1a;color:#fff;min-height:100vh;user-select:none}
+.screen{display:none}.screen.active{display:block}
+
+/* SETUP */
+.setup-wrap{max-width:700px;margin:0 auto;padding:28px 20px}
+h1{font-size:26px;font-weight:500;margin-bottom:6px}
+.sub{font-size:14px;color:#999;margin-bottom:20px;line-height:1.7}
+
+/* PATIENT */
+.patient-box{background:#252525;border-radius:12px;padding:16px 20px;margin-bottom:20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.patient-box label{font-size:13px;color:#aaa;white-space:nowrap}
+.patient-input{flex:1;min-width:160px;padding:8px 12px;background:#1a1a1a;border:1px solid #444;border-radius:8px;color:#fff;font-size:14px;font-family:inherit}
+.patient-input:focus{outline:none;border-color:#4a9eff}
+.btn-history{padding:8px 16px;background:transparent;border:1px solid #444;border-radius:8px;color:#aaa;font-size:13px;cursor:pointer;font-family:inherit;white-space:nowrap}
+.btn-history:hover{border-color:#888;color:#fff}
+
+.how-box{background:#252525;border-radius:12px;padding:14px 18px;margin-bottom:20px}
+.how-box h3{font-size:13px;color:#aaa;margin-bottom:8px;letter-spacing:.05em}
+.how-item{font-size:13px;color:#ccc;line-height:1.9;padding-left:18px;position:relative}
+.how-item::before{content:'→';position:absolute;left:0;color:#4a9eff}
+.section-label{font-size:12px;color:#888;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px}
+.mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+.mode-card{background:#252525;border:2px solid #383838;border-radius:10px;padding:13px;cursor:pointer;transition:border-color .15s}
+.mode-card:hover{border-color:#666}.mode-card.sel{border-color:#4a9eff}
+.mode-name{font-size:14px;font-weight:500;margin-bottom:3px}
+.mode-desc{font-size:12px;color:#777;line-height:1.5}
+.params{background:#252525;border-radius:12px;padding:14px 18px;margin-bottom:20px}
+.pr{display:flex;align-items:center;gap:14px;margin-bottom:10px}
+.pr:last-child{margin-bottom:0}
+.pl{font-size:13px;color:#bbb;width:160px;flex-shrink:0}
+.pc{flex:1;display:flex;align-items:center;gap:10px}
+.pc input[type=range]{flex:1;accent-color:#4a9eff}
+.pv{font-size:13px;color:#4a9eff;min-width:52px;text-align:right}
+.btn-start{width:100%;padding:15px;background:#4a9eff;color:#fff;border:none;border-radius:10px;font-size:17px;font-weight:500;cursor:pointer;font-family:inherit}
+.btn-start:hover{background:#3a8eee}
+
+/* TASK */
+.task-wrap{width:100vw;height:100vh;position:relative;overflow:hidden;background:#0f0f0f;cursor:none}
+.hud{position:absolute;top:0;left:0;right:0;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;z-index:30;background:linear-gradient(to bottom,rgba(0,0,0,.75),transparent);pointer-events:none}
+.hud>*{pointer-events:auto}
+.hstat{text-align:center;min-width:60px}
+.hnum{font-size:20px;font-weight:500}
+.hlbl{font-size:10px;color:#777;margin-top:2px}
+.htimer{font-size:30px;font-weight:500;font-variant-numeric:tabular-nums;color:#fff}
+.htimer.warn{color:#ff5252;animation:blink .6s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
+.btn-stop{padding:7px 16px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:7px;color:#fff;font-size:12px;cursor:pointer;font-family:inherit}
+.btn-stop:hover{background:rgba(255,255,255,.2)}
+.central{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:380px;background:#1c1c1c;border:1px solid #2e2e2e;border-radius:14px;padding:24px;text-align:center;z-index:10;pointer-events:none}
+.clbl{font-size:11px;color:#555;letter-spacing:.08em;margin-bottom:8px}
+.ctask{font-size:52px;font-weight:500;min-height:68px;display:flex;align-items:center;justify-content:center;line-height:1}
+.cfeedback{font-size:13px;min-height:20px;margin-top:10px;opacity:0;transition:opacity .25s}
+.cfeedback.ok{color:#4caf50;opacity:1}.cfeedback.ng{color:#e53935;opacity:1}
+.resp-hint{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);font-size:12px;color:#444;z-index:20;white-space:nowrap;text-align:center;pointer-events:none}
+.resp-hint span{color:#666}
+.ptarget{position:absolute;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;z-index:20;transition:opacity .15s;pointer-events:none}
+.ptarget.flash-ok{background:#4caf50 !important;transition:none}
+.fa-flash{position:absolute;inset:0;background:rgba(229,57,53,.15);z-index:5;pointer-events:none;opacity:0;transition:opacity .15s}
+.fa-flash.show{opacity:1}
+.countdown{position:fixed;inset:0;background:rgba(0,0,0,.88);display:flex;align-items:center;justify-content:center;z-index:100;font-size:110px;font-weight:700;display:none}
+
+/* RESULT */
+.res-wrap{max-width:820px;margin:0 auto;padding:28px 20px}
+.res-title{font-size:22px;font-weight:500;margin-bottom:16px;text-align:center}
+.res-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:16px}
+.rcard{background:#252525;border-radius:10px;padding:14px;text-align:center}
+.rnum{font-size:28px;font-weight:500}
+.rlbl{font-size:11px;color:#777;margin-top:3px}
+.rnum.good{color:#4caf50}.rnum.warn{color:#ff9800}.rnum.bad{color:#e53935}
+.rcomment{background:#252525;border-radius:10px;padding:14px;font-size:13px;color:#ccc;line-height:1.9;margin-bottom:16px;white-space:pre-line}
+
+/* HEATMAP */
+.heatmap-section{background:#252525;border-radius:12px;padding:16px;margin-bottom:16px}
+.heatmap-title{font-size:13px;color:#aaa;margin-bottom:12px;font-weight:500}
+.heatmap-layout{display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap}
+.heatmap-wrap{position:relative;flex-shrink:0}
+.heatmap-screen{width:270px;height:200px;border:1px solid #444;border-radius:8px;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);overflow:hidden;position:relative}
+.hzone{position:relative;display:flex;align-items:center;justify-content:center;font-size:11px;color:rgba(255,255,255,.5);border:0.5px solid rgba(255,255,255,.05);transition:background .3s}
+.hzone .zone-label{position:absolute;top:3px;left:5px;font-size:10px;color:rgba(255,255,255,.3)}
+.hzone .zone-num{font-size:18px;font-weight:500}
+.heatmap-legend{display:flex;flex-direction:column;gap:6px;margin-top:4px}
+.legend-row{display:flex;align-items:center;gap:8px;font-size:12px;color:#aaa}
+.legend-box{width:16px;height:16px;border-radius:3px}
+.heatmap-note{flex:1;min-width:180px}
+.heatmap-note-title{font-size:12px;color:#888;margin-bottom:8px}
+.zone-detail{font-size:12px;color:#ccc;line-height:1.8}
+.zone-name-map{font-size:11px;color:#666;margin-top:8px;line-height:1.8}
+
+/* HISTORY */
+.history-section{background:#252525;border-radius:12px;padding:14px 16px;margin-bottom:16px}
+.history-title{font-size:13px;color:#aaa;margin-bottom:10px;font-weight:500;display:flex;align-items:center;justify-content:space-between}
+.history-table{width:100%;border-collapse:collapse;font-size:12px}
+.history-table th{text-align:left;padding:5px 8px;border-bottom:1px solid #333;color:#666;font-weight:normal;white-space:nowrap}
+.history-table td{padding:5px 8px;border-bottom:1px solid #222;color:#ccc}
+.history-table tr:last-child td{border-bottom:none}
+.badge-good{color:#4caf50}.badge-warn{color:#ff9800}.badge-bad{color:#e53935}
+.btn-clear-hist{padding:4px 10px;background:transparent;border:1px solid #444;border-radius:5px;color:#666;font-size:11px;cursor:pointer;font-family:inherit}
+.btn-clear-hist:hover{border-color:#888;color:#aaa}
+
+.res-btns{display:flex;gap:12px}
+.btn-again{flex:1;padding:12px;background:#4a9eff;color:#fff;border:none;border-radius:9px;font-size:14px;font-weight:500;cursor:pointer;font-family:inherit}
+.btn-home{flex:1;padding:12px;background:#252525;color:#fff;border:1px solid #383838;border-radius:9px;font-size:14px;cursor:pointer;font-family:inherit}
+
+/* HISTORY MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px}
+.modal-box{background:#1e1e1e;border-radius:14px;padding:20px;max-width:720px;width:100%;max-height:85vh;overflow-y:auto}
+.modal-title{font-size:16px;font-weight:500;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between}
+.modal-close{background:transparent;border:none;color:#888;font-size:20px;cursor:pointer;line-height:1}
+.modal-close:hover{color:#fff}
+.patient-list{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.patient-chip{padding:6px 14px;background:#252525;border:1px solid #383838;border-radius:20px;font-size:13px;cursor:pointer;color:#ccc}
+.patient-chip:hover{border-color:#4a9eff;color:#fff}
+.patient-chip.active{border-color:#4a9eff;color:#4a9eff}
+</style>
+</head>
+<body>
+
+<!-- SETUP -->
+<div class="screen active" id="screen-setup">
+<div class="setup-wrap">
+  <h1>視覚注意課題</h1>
+  <p class="sub">中心課題をしながら、画面の端に出るターゲットに反応します。</p>
+
+  <div class="patient-box">
+    <label>患者名・ID：</label>
+    <input class="patient-input" id="patient-name" type="text" placeholder="例：Aさん、PT001" value="">
+    <button class="btn-history" onclick="openHistoryModal()">履歴を見る</button>
+  </div>
+
+  <div class="how-box">
+    <h3>操作方法</h3>
+    <div class="how-item">画面中央の課題の答えを口頭で言う</div>
+    <div class="how-item">セラピストが <strong>Enterキー（正解）</strong> または <strong>Backspaceキー（不正解）</strong> を押す</div>
+    <div class="how-item">画面の端にターゲットが出たら <strong>スペースキー</strong> で反応する</div>
+    <div class="how-item">ターゲットが出ていないときに押すと「誤反応」</div>
+  </div>
+
+  <div class="section-label">中心課題</div>
+  <div class="mode-grid" id="cgrid">
+    <div class="mode-card sel" data-v="calc" onclick="selMode(&#39;c&#39;,this)"><div class="mode-name">計算（足し算）</div><div class="mode-desc">2つの数字の足し算を口頭で答える</div></div>
+    <div class="mode-card" data-v="parity" onclick="selMode(&#39;c&#39;,this)"><div class="mode-name">偶数・奇数</div><div class="mode-desc">表示された数字が偶数か奇数かを言う</div></div>
+    <div class="mode-card" data-v="kana" onclick="selMode(&#39;c&#39;,this)"><div class="mode-name">仮名の分類</div><div class="mode-desc">ひらがな・カタカナを見て答える</div></div>
+    <div class="mode-card" data-v="color" onclick="selMode(&#39;c&#39;,this)"><div class="mode-name">色の命名</div><div class="mode-desc">表示された図形の色を言う</div></div>
+  </div>
+
+  <div class="section-label">周辺ターゲット</div>
+  <div class="mode-grid" id="pgrid">
+    <div class="mode-card sel" data-v="number" onclick="selMode(&#39;p&#39;,this)"><div class="mode-name">数字</div><div class="mode-desc">1〜9の数字が端に出現する</div></div>
+    <div class="mode-card" data-v="shape" onclick="selMode(&#39;p&#39;,this)"><div class="mode-name">図形</div><div class="mode-desc">○△□が出現する</div></div>
+    <div class="mode-card" data-v="dot" onclick="selMode(&#39;p&#39;,this)"><div class="mode-name">色つき丸</div><div class="mode-desc">赤・青・黄の丸が出現する</div></div>
+    <div class="mode-card" data-v="alert" onclick="selMode(&#39;p&#39;,this)"><div class="mode-name">警告マーク「！」</div><div class="mode-desc">ランダムな位置に出現する</div></div>
+  </div>
+
+  <div class="params">
+    <div class="pr"><span class="pl">実施時間</span><div class="pc"><input type="range" min="1" max="10" step="1" value="3" id="p-dur" oninput="pv(&#39;dur&#39;,this.value)"><span class="pv" id="v-dur">3分</span></div></div>
+    <div class="pr"><span class="pl">出現間隔（平均）</span><div class="pc"><input type="range" min="2" max="12" step="1" value="5" id="p-int" oninput="pv(&#39;int&#39;,this.value)"><span class="pv" id="v-int">5秒</span></div></div>
+    <div class="pr"><span class="pl">ターゲット表示時間</span><div class="pc"><input type="range" min="1" max="6" step="0.5" value="2.5" id="p-vis" oninput="pv(&#39;vis&#39;,this.value)"><span class="pv" id="v-vis">2.5秒</span></div></div>
+    <div class="pr"><span class="pl">中心課題の難度</span><div class="pc"><input type="range" min="1" max="3" step="1" value="1" id="p-dif" oninput="pv(&#39;dif&#39;,this.value)"><span class="pv" id="v-dif">易しい</span></div></div>
+  </div>
+
+  <button class="btn-start" onclick="startTask()">課題を開始する</button>
+</div>
+</div>
+
+<!-- TASK -->
+<div class="screen" id="screen-task">
+  <div class="task-wrap" id="twrap" onclick="onResponse()">
+    <div class="fa-flash" id="fa-flash"></div>
+    <div class="hud">
+      <div class="hstat"><div class="hnum" id="h-hit" style="color:#4caf50">0</div><div class="hlbl">検知</div></div>
+      <div class="hstat"><div class="hnum" id="h-miss" style="color:#ff9800">0</div><div class="hlbl">見逃し</div></div>
+      <div class="hstat"><div class="hnum" id="h-fa" style="color:#e53935">0</div><div class="hlbl">誤反応</div></div>
+      <div class="htimer" id="htimer">—</div>
+      <div class="hstat"><div class="hnum" id="h-cent" style="color:#aaa">0</div><div class="hlbl">中心（正解/出題）</div></div>
+      <button class="btn-stop" onclick="event.stopPropagation();stopTask()">終了</button>
+    </div>
+    <div class="central" id="central">
+      <div class="clbl" id="clbl">中心課題</div>
+      <div class="ctask" id="ctask">—</div>
+      <div class="cfeedback" id="cfb"></div>
+    </div>
+    <div class="resp-hint">周辺検知：<span>スペース</span>　中心正解：<span>Enter</span>　中心不正解：<span>Backspace</span></div>
+  </div>
+</div>
+
+<!-- RESULT -->
+<div class="screen" id="screen-result">
+<div class="res-wrap">
+  <div class="res-title">課題終了 — 結果</div>
+
+  <div class="res-grid">
+    <div class="rcard"><div class="rnum" id="r-rate">—</div><div class="rlbl">検知率</div></div>
+    <div class="rcard"><div class="rnum" id="r-miss">—</div><div class="rlbl">見逃し数</div></div>
+    <div class="rcard"><div class="rnum" id="r-fa">—</div><div class="rlbl">誤反応数</div></div>
+    <div class="rcard"><div class="rnum" id="r-rt">—</div><div class="rlbl">平均反応時間</div></div>
+    <div class="rcard"><div class="rnum" id="r-cent">—</div><div class="rlbl">中心課題（正解/出題）</div></div>
+  </div>
+
+  <!-- HEATMAP -->
+  <div class="heatmap-section">
+    <div class="heatmap-title">見落とし分布マップ（画面9ゾーン）</div>
+    <div class="heatmap-layout">
+      <div class="heatmap-wrap">
+        <div class="heatmap-screen" id="heatmap-screen"></div>
+        <div class="heatmap-legend" style="margin-top:10px">
+          <div class="legend-row"><div class="legend-box" style="background:#e53935"></div>見逃し多い</div>
+          <div class="legend-row"><div class="legend-box" style="background:#ff9800"></div>見逃し中程度</div>
+          <div class="legend-row"><div class="legend-box" style="background:#2e7d32"></div>検知良好</div>
+          <div class="legend-row"><div class="legend-box" style="background:#333"></div>出現なし</div>
+        </div>
+      </div>
+      <div class="heatmap-note">
+        <div class="heatmap-note-title">ゾーン別詳細</div>
+        <div class="zone-detail" id="zone-detail"></div>
+        <div class="zone-name-map">
+          左上・上・右上<br>左・中・右<br>左下・下・右下
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="rcomment" id="r-comment"></div>
+
+  <!-- SESSION HISTORY -->
+  <div class="history-section" id="session-history-section">
+    <div class="history-title">
+      <span id="history-patient-label">履歴</span>
+      <button class="btn-clear-hist" onclick="clearCurrentHistory()">この患者の履歴を削除</button>
+    </div>
+    <div id="history-table-wrap"></div>
+  </div>
+
+  <div class="res-btns">
+    <button class="btn-again" onclick="startTask()">もう一度（同じ設定）</button>
+    <button class="btn-home" onclick="showScreen(&#39;setup&#39;)">設定を変える</button>
+  </div>
+</div>
+</div>
+
+<!-- HISTORY MODAL -->
+<div id="modal-overlay" style="display:none" class="modal-overlay" onclick="closeModal(event)">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <div class="modal-title">
+      <span>患者別 履歴一覧</span>
+      <button class="modal-close" onclick="closeHistoryModal()">✕</button>
+    </div>
+    <div id="modal-patient-list" class="patient-list"></div>
+    <div id="modal-history-content"></div>
+  </div>
+</div>
+
+<div class="countdown" id="countdown"></div>
+
+<script>
+const cfg={c:'calc',p:'number',dur:3,int:5,vis:2.5,dif:1};
+let taskRunning=false;
+let timeLeft=0,hits=0,misses=0,fa=0,centralOk=0,centralTotal=0;
+let totalTargets=0;
+let currentTarget=null,targetShownAt=0,targetTimeout=null;
+let taskTick=null,periphTick=null;
+let rtList=[];
+
+// 位置ログ: {zone:0-8, hit:bool, x, y}
+let posLog=[];
+let currentTargetZone=-1;
+
+const ZONE_NAMES=['左上','上','右上','左','中央','右','左下','下','右下'];
+
+function getZone(x,y){
+  const W=window.innerWidth,H=window.innerHeight;
+  const col=x<W/3?0:x<W*2/3?1:2;
+  const row=y<H/3?0:y<H*2/3?1:2;
+  return row*3+col;
+}
+
+function selMode(type,el){
+  const grid=document.getElementById(type==='c'?'cgrid':'pgrid');
+  grid.querySelectorAll('.mode-card').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');
+  cfg[type]=el.dataset.v;
+}
+function pv(k,v){
+  if(k==='dur'){cfg.dur=+v;document.getElementById('v-dur').textContent=v+'分';}
+  else if(k==='int'){cfg.int=+v;document.getElementById('v-int').textContent=v+'秒';}
+  else if(k==='vis'){cfg.vis=+v;document.getElementById('v-vis').textContent=v+'秒';}
+  else if(k==='dif'){cfg.dif=+v;document.getElementById('v-dif').textContent=['','易しい','普通','難しい'][+v];}
+}
+function showScreen(s){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById('screen-'+s).classList.add('active');}
+function rnd(a,b){return Math.floor(Math.random()*(b-a+1)+a);}
+
+// ===== TASK START =====
+function startTask(){
+  hits=0;misses=0;fa=0;centralOk=0;centralTotal=0;totalTargets=0;rtList=[];posLog=[];
+  timeLeft=cfg.dur*60;
+  taskRunning=false;
+  clearAllTimers();
+  removeTarget();
+  updateHUD();
+
+  let n=3;
+  const cd=document.getElementById('countdown');
+  cd.style.display='flex';cd.textContent=n;
+  const iv=setInterval(()=>{
+    n--;
+    if(n>0){cd.textContent=n;}
+    else{
+      clearInterval(iv);
+      cd.style.display='none';
+      showScreen('task');
+      taskRunning=true;
+      nextCentral();
+      startTickTimers();
+    }
+  },900);
+}
+
+function startTickTimers(){
+  taskTick=setInterval(()=>{timeLeft--;updateTimerDisplay();if(timeLeft<=0)stopTask();},1000);
+  scheduleNextTarget();
+  updateTimerDisplay();
+}
+
+function updateTimerDisplay(){
+  const m=Math.floor(timeLeft/60),s=timeLeft%60;
+  const el=document.getElementById('htimer');
+  el.textContent=`${m}:${String(s).padStart(2,'0')}`;
+  el.className='htimer'+(timeLeft<=10?' warn':'');
+}
+
+function updateHUD(){
+  document.getElementById('h-hit').textContent=hits;
+  document.getElementById('h-miss').textContent=misses;
+  document.getElementById('h-fa').textContent=fa;
+  document.getElementById('h-cent').textContent=centralOk+'/'+centralTotal;
+}
+
+function clearAllTimers(){
+  clearInterval(taskTick);clearTimeout(periphTick);clearTimeout(targetTimeout);
+  taskTick=null;periphTick=null;targetTimeout=null;
+}
+
+function stopTask(){
+  taskRunning=false;
+  clearAllTimers();
+  if(currentTarget){
+    misses++;
+    posLog.push({zone:currentTargetZone,hit:false});
+  }
+  removeTarget();
+  saveSession();
+  showResult();
+}
+
+// ===== CENTRAL TASK =====
+let cAnswer='';
+function nextCentral(){
+  centralTotal++;
+  document.getElementById('cfb').className='cfeedback';
+  const d=cfg.dif;
+  const el=document.getElementById('ctask');
+  const lbl=document.getElementById('clbl');
+  if(cfg.c==='calc'){
+    const mx=d===1?9:d===2?19:49;
+    const a=rnd(d===1?1:5,mx),b=rnd(d===1?1:5,mx);
+    cAnswer=String(a+b);
+    el.textContent=`${a} + ${b}`;lbl.textContent='足し算（口頭で答えてください）';
+  } else if(cfg.c==='parity'){
+    const n=rnd(1,d===1?20:d===2?50:99);
+    cAnswer=n%2===0?'偶数':'奇数';
+    el.textContent=String(n);lbl.textContent='偶数・奇数？';
+  } else if(cfg.c==='kana'){
+    const h='あいうえおかきくけこさしすせそなにぬねの'.split('');
+    const k='アイウエオカキクケコサシスセソナニヌネノ'.split('');
+    const useH=Math.random()>.5;
+    const arr=useH?h:k;
+    cAnswer=useH?'ひらがな':'カタカナ';
+    el.textContent=arr[rnd(0,arr.length-1)];lbl.textContent='ひらがな・カタカナ？';
+  } else if(cfg.c==='color'){
+    const shapes=['○','△','□'];
+    const colors=[{n:'赤',c:'#e53935'},{n:'青',c:'#1e88e5'},{n:'黄',c:'#f9a825'}];
+    const s=shapes[rnd(0,2)],cl=colors[rnd(0,2)];
+    cAnswer=cl.n;
+    el.innerHTML=`<span style="color:${cl.c};font-size:58px">${s}</span>`;
+    lbl.textContent='何色？';
+  }
+}
+
+function markCentralCorrect(ok){
+  if(!taskRunning)return;
+  if(ok){centralOk++;document.getElementById('h-cent').textContent=centralOk+'/'+centralTotal;showCFB('正解','ok');}
+  else{showCFB('不正解','ng');}
+  setTimeout(()=>nextCentral(),500);
+}
+
+function showCFB(msg,type){
+  const el=document.getElementById('cfb');
+  el.textContent=msg;el.className='cfeedback '+type;
+  setTimeout(()=>{el.className='cfeedback';},800);
+}
+
+// ===== PERIPH TARGET =====
+function scheduleNextTarget(){
+  if(!taskRunning)return;
+  const base=cfg.int*1000;
+  const jitter=(Math.random()-.5)*base*0.5;
+  periphTick=setTimeout(()=>{if(taskRunning)showTarget();},Math.max(base+jitter,1500));
+}
+
+const POSITIONS=[
+  ()=>({x:rnd(20,110),y:rnd(80,window.innerHeight-80)}),
+  ()=>({x:rnd(window.innerWidth-150,window.innerWidth-60),y:rnd(80,window.innerHeight-80)}),
+  ()=>({x:rnd(80,window.innerWidth-80),y:rnd(80,160)}),
+  ()=>({x:rnd(80,window.innerWidth-80),y:rnd(window.innerHeight-160,window.innerHeight-80)}),
+  ()=>({x:rnd(20,160),y:rnd(60,200)}),
+  ()=>({x:rnd(window.innerWidth-200,window.innerWidth-60),y:rnd(60,200)}),
+  ()=>({x:rnd(20,160),y:rnd(window.innerHeight-200,window.innerHeight-80)}),
+  ()=>({x:rnd(window.innerWidth-200,window.innerWidth-60),y:rnd(window.innerHeight-200,window.innerHeight-80)}),
+];
+
+function showTarget(){
+  if(!taskRunning)return;
+  totalTargets++;
+  const posFn=POSITIONS[rnd(0,POSITIONS.length-1)];
+  const pos=posFn();
+  const zone=getZone(pos.x+30,pos.y+30);
+  currentTargetZone=zone;
+
+  const el=document.createElement('div');
+  el.className='ptarget';
+  el.style.left=pos.x+'px';el.style.top=pos.y+'px';
+  el.style.width='60px';el.style.height='60px';
+
+  if(cfg.p==='number'){
+    el.textContent=rnd(1,9);
+    el.style.background='rgba(74,158,255,0.92)';el.style.color='#fff';el.style.fontSize='28px';
+  } else if(cfg.p==='shape'){
+    el.textContent=['○','△','□'][rnd(0,2)];
+    el.style.background='rgba(255,183,77,0.92)';el.style.color='#1a1a1a';el.style.fontSize='26px';
+  } else if(cfg.p==='dot'){
+    const c=['#e53935','#1e88e5','#f9a825'][rnd(0,2)];
+    el.style.background=c;el.style.borderRadius='50%';el.style.width='54px';el.style.height='54px';
+  } else if(cfg.p==='alert'){
+    el.textContent='！';
+    el.style.background='rgba(229,57,53,0.92)';el.style.color='#fff';el.style.fontSize='28px';
+  }
+
+  document.getElementById('twrap').appendChild(el);
+  currentTarget=el;
+  targetShownAt=Date.now();
+
+  targetTimeout=setTimeout(()=>{
+    if(currentTarget===el){
+      misses++;
+      posLog.push({zone,hit:false});
+      updateHUD();
+      el.style.opacity='0';
+      setTimeout(()=>{if(el.parentNode)el.remove();},200);
+      currentTarget=null;
+      scheduleNextTarget();
+    }
+  },cfg.vis*1000);
+}
+
+function removeTarget(){
+  if(currentTarget&&currentTarget.parentNode)currentTarget.remove();
+  currentTarget=null;
+  clearTimeout(targetTimeout);targetTimeout=null;
+}
+
+// ===== RESPONSE =====
+function onResponse(){
+  if(!taskRunning)return;
+  if(currentTarget){
+    const rt=Date.now()-targetShownAt;
+    rtList.push(rt);
+    hits++;
+    posLog.push({zone:currentTargetZone,hit:true});
+    updateHUD();
+    clearTimeout(targetTimeout);
+    const el=currentTarget;currentTarget=null;
+    el.classList.add('flash-ok');
+    setTimeout(()=>{if(el.parentNode)el.remove();},250);
+    scheduleNextTarget();
+  } else {
+    fa++;updateHUD();
+    const fl=document.getElementById('fa-flash');
+    fl.classList.add('show');
+    setTimeout(()=>fl.classList.remove('show'),200);
+  }
+}
+
+document.addEventListener('keydown',e=>{
+  if(!taskRunning)return;
+  if(e.code==='Space'){e.preventDefault();onResponse();}
+  if(e.code==='Enter'){e.preventDefault();markCentralCorrect(true);}
+  if(e.code==='Backspace'){e.preventDefault();markCentralCorrect(false);}
+});
+
+// ===== HEATMAP =====
+function buildHeatmap(log){
+  const zones=Array(9).fill(null).map(()=>({hit:0,miss:0}));
+  log.forEach(l=>{if(l.zone>=0&&l.zone<9){if(l.hit)zones[l.zone].hit++;else zones[l.zone].miss++;}});
+
+  const screen=document.getElementById('heatmap-screen');
+  screen.innerHTML='';
+  const details=[];
+
+  zones.forEach((z,i)=>{
+    const div=document.createElement('div');
+    div.className='hzone';
+    const total=z.hit+z.miss;
+    let bg='#333',rate=0;
+    if(total>0){
+      rate=Math.round(z.hit/total*100);
+      if(rate>=80)bg='rgba(46,125,50,0.7)';
+      else if(rate>=50)bg='rgba(255,152,0,0.6)';
+      else bg='rgba(229,57,53,0.7)';
+    }
+    div.style.background=bg;
+    div.innerHTML=`<span class="zone-label">${ZONE_NAMES[i]}</span><span class="zone-num">${total>0?rate+'%':'—'}</span>`;
+    screen.appendChild(div);
+
+    if(total>0){
+      details.push(`${ZONE_NAMES[i]}：出現${total}回、検知${z.hit}回、見逃${z.miss}回（${rate}%）`);
+    }
+  });
+
+  document.getElementById('zone-detail').innerHTML=details.length?details.join('<br>'):'データなし';
+}
+
+// ===== STORAGE =====
+function getStorageKey(name){return 'vatask_'+name.trim();}
+
+function saveSession(){
+  const name=document.getElementById('patient-name').value.trim()||'未設定';
+  const rate=totalTargets>0?Math.round(hits/totalTargets*100):0;
+  const avgRt=rtList.length>0?Math.round(rtList.reduce((a,b)=>a+b,0)/rtList.length):null;
+  const now=new Date();
+  const dateStr=`${now.getFullYear()}/${now.getMonth()+1}/${now.getDate()} ${now.getHours()}:${String(now.getMinutes()).padStart(2,'0')}`;
+
+  const zoneStats=Array(9).fill(null).map(()=>({hit:0,miss:0}));
+  posLog.forEach(l=>{if(l.zone>=0&&l.zone<9){if(l.hit)zoneStats[l.zone].hit++;else zoneStats[l.zone].miss++;}});
+  const zoneRates=zoneStats.map(z=>{const t=z.hit+z.miss;return t>0?Math.round(z.hit/t*100):null;});
+
+  const session={
+    date:dateStr,
+    hits,misses,fa,totalTargets,rate,
+    avgRt,centralOk,centralTotal,
+    cfg:{c:cfg.c,p:cfg.p,dur:cfg.dur,int:cfg.int,vis:cfg.vis,dif:cfg.dif},
+    zoneRates,
+    posLog
+  };
+
+  const key=getStorageKey(name);
+  let history=[];
+  try{history=JSON.parse(localStorage.getItem(key)||'[]');}catch(e){}
+  history.push(session);
+  // keep last 30 sessions
+  if(history.length>30)history=history.slice(-30);
+  localStorage.setItem(key,JSON.stringify(history));
+}
+
+function loadHistory(name){
+  const key=getStorageKey(name);
+  try{return JSON.parse(localStorage.getItem(key)||'[]');}catch(e){return[];}
+}
+
+function getAllPatients(){
+  const patients=[];
+  for(let i=0;i<localStorage.length;i++){
+    const k=localStorage.key(i);
+    if(k.startsWith('vatask_'))patients.push(k.replace('vatask_',''));
+  }
+  return patients;
+}
+
+function clearCurrentHistory(){
+  const name=document.getElementById('patient-name').value.trim()||'未設定';
+  if(confirm(`「${name}」の履歴をすべて削除しますか？`)){
+    localStorage.removeItem(getStorageKey(name));
+    renderSessionHistory();
+  }
+}
+
+function zoneHeatmapHtml(zoneRates){
+  if(!zoneRates)return '<span style="color:#555;font-size:11px">—</span>';
+  const NAMES=['左上','上','右上','左','中','右','左下','下','右下'];
+  let g='<div style="display:grid;grid-template-columns:repeat(3,28px);grid-template-rows:repeat(3,22px);gap:1px;border:1px solid #333;border-radius:4px;overflow:hidden">';
+  zoneRates.forEach((r,i)=>{
+    let bg='#2a2a2a',txt='—',col='#555';
+    if(r!==null){
+      txt=r+'%';
+      if(r>=80){bg='rgba(46,125,50,0.6)';col='#a5d6a7';}
+      else if(r>=50){bg='rgba(255,152,0,0.45)';col='#ffcc80';}
+      else{bg='rgba(229,57,53,0.55)';col='#ef9a9a';}
+    }
+    g+=`<div title="${NAMES[i]}:${r!==null?r+'%':'出現なし'}" style="background:${bg};display:flex;align-items:center;justify-content:center;font-size:9px;color:${col};font-weight:500">${txt}</div>`;
+  });
+  g+='</div>';
+  return g;
+}
+
+function renderSessionHistory(){
+  const name=document.getElementById('patient-name').value.trim()||'未設定';
+  document.getElementById('history-patient-label').textContent=`「${name}」の過去セッション`;
+  const history=loadHistory(name);
+  const wrap=document.getElementById('history-table-wrap');
+  if(!history.length){wrap.innerHTML='<p style="font-size:12px;color:#555;padding:8px 0">履歴がありません</p>';return;}
+
+  const modeName={calc:'計算',parity:'偶数奇数',kana:'仮名分類',color:'色命名'};
+  let html=`<div style="overflow-x:auto"><table class="history-table"><thead><tr>
+    <th>#</th><th>日時</th><th>検知率</th><th>見逃し</th><th>誤反応</th><th>平均RT</th><th>中心</th><th>ゾーン別検知率</th><th>設定</th>
+  </tr></thead><tbody>`;
+  [...history].reverse().forEach((s,i)=>{
+    const cls=s.rate>=80?'badge-good':s.rate>=60?'badge-warn':'badge-bad';
+    html+=`<tr>
+      <td style="color:#555">${history.length-i}</td>
+      <td style="white-space:nowrap">${s.date}</td>
+      <td class="${cls}" style="font-weight:500">${s.rate}%</td>
+      <td>${s.misses}</td>
+      <td>${s.fa}</td>
+      <td>${s.avgRt?s.avgRt+'ms':'—'}</td>
+      <td>${s.centralOk}問</td>
+      <td>${zoneHeatmapHtml(s.zoneRates)}</td>
+      <td style="color:#555;white-space:nowrap">${modeName[s.cfg.c]||s.cfg.c}/${s.cfg.dur}分</td>
+    </tr>`;
+  });
+  html+='</tbody></table></div>';
+  wrap.innerHTML=html;
+}
+
+// ===== RESULT =====
+function showResult(){
+  const rate=totalTargets>0?Math.round(hits/totalTargets*100):0;
+  const avgRt=rtList.length>0?Math.round(rtList.reduce((a,b)=>a+b,0)/rtList.length):null;
+
+  const rateEl=document.getElementById('r-rate');
+  rateEl.textContent=rate+'%';
+  rateEl.className='rnum'+(rate>=80?' good':rate>=60?' warn':' bad');
+  document.getElementById('r-miss').textContent=misses;
+  document.getElementById('r-fa').textContent=fa;
+  document.getElementById('r-rt').textContent=avgRt?avgRt+'ms':'—';
+  document.getElementById('r-cent').textContent=centralOk+'/'+centralTotal+'問';
+
+  buildHeatmap(posLog);
+
+  let comment='';
+  if(rate>=80&&fa<=2)comment='検知率・誤反応ともに良好です。中心課題を難しくするか、出現間隔を短くしてみましょう。';
+  else if(rate>=80&&fa>2)comment='検知率は高いですが、誤反応が多めです。ターゲットが出ていないときに押さないよう意識してみましょう。';
+  else if(rate>=60)comment='見逃しがやや多い傾向があります。周辺視野への注意を保ちながら中心課題をこなす練習を続けましょう。';
+  else comment='見逃しが多めです。まずターゲットの表示時間を長くするか、出現間隔を広げて練習しましょう。';
+
+  // ゾーン別コメント
+  const zones=Array(9).fill(null).map(()=>({hit:0,miss:0}));
+  posLog.forEach(l=>{if(l.zone>=0&&l.zone<9){if(l.hit)zones[l.zone].hit++;else zones[l.zone].miss++;}});
+  const worstZones=zones.map((z,i)=>({i,miss:z.miss,total:z.hit+z.miss}))
+    .filter(z=>z.miss>0).sort((a,b)=>b.miss-a.miss).slice(0,2);
+  if(worstZones.length>0){
+    comment+='\n見逃しは'+worstZones.map(z=>`「${ZONE_NAMES[z.i]}」`).join('・')+'エリアで多い傾向があります。';
+  }
+
+  const modeName={calc:'計算',parity:'偶数奇数',kana:'仮名分類',color:'色命名'}[cfg.c];
+  const ptName={number:'数字',shape:'図形',dot:'色丸',alert:'警告'}[cfg.p];
+  comment+=`\n\n設定：中心「${modeName}」/ 周辺「${ptName}」/ ${cfg.dur}分 / 出現間隔${cfg.int}秒 / 表示${cfg.vis}秒`;
+  document.getElementById('r-comment').textContent=comment;
+
+  renderSessionHistory();
+  showScreen('result');
+}
+
+// ===== HISTORY MODAL =====
+function openHistoryModal(){
+  const patients=getAllPatients();
+  const listEl=document.getElementById('modal-patient-list');
+  if(!patients.length){
+    listEl.innerHTML='<p style="font-size:13px;color:#555">まだ履歴がありません</p>';
+    document.getElementById('modal-history-content').innerHTML='';
+  } else {
+    listEl.innerHTML=patients.map(p=>`<div class="patient-chip" onclick="showModalHistory('${p}',this)">${p}</div>`).join('');
+    // auto-select first
+    const first=listEl.querySelector('.patient-chip');
+    if(first){first.click();}
+  }
+  document.getElementById('modal-overlay').style.display='flex';
+}
+
+function showModalHistory(name,chip){
+  document.querySelectorAll('.patient-chip').forEach(c=>c.classList.remove('active'));
+  chip.classList.add('active');
+  const history=loadHistory(name);
+  const modeName={calc:'計算',parity:'偶数奇数',kana:'仮名分類',color:'色命名'};
+  let html=`<p style="font-size:13px;color:#888;margin-bottom:10px">「${name}」— ${history.length}セッション</p>`;
+  if(!history.length){html+='<p style="font-size:12px;color:#555">履歴なし</p>';}
+  else{
+    html+=`<div style="overflow-x:auto"><table class="history-table" style="font-size:11px"><thead><tr>
+      <th>#</th><th>日時</th><th>検知率</th><th>見逃し</th><th>誤反応</th><th>RT</th><th>中心</th><th>ゾーン別</th><th>設定</th>
+    </tr></thead><tbody>`;
+    [...history].reverse().forEach((s,i)=>{
+      const cls=s.rate>=80?'badge-good':s.rate>=60?'badge-warn':'badge-bad';
+      html+=`<tr><td style="color:#555">${history.length-i}</td><td style="white-space:nowrap">${s.date}</td>
+        <td class="${cls}">${s.rate}%</td><td>${s.misses}</td><td>${s.fa}</td>
+        <td>${s.avgRt?s.avgRt+'ms':'—'}</td><td>${s.centralOk}/${s.centralTotal||'?'}問</td>
+        <td>${zoneHeatmapHtml(s.zoneRates)}</td>
+        <td style="color:#555;white-space:nowrap">${modeName[s.cfg.c]||s.cfg.c}/${s.cfg.dur}分</td></tr>`;
+    });
+    html+='</tbody></table></div>';
+  }
+  document.getElementById('modal-history-content').innerHTML=html;
+}
+
+function closeHistoryModal(){document.getElementById('modal-overlay').style.display='none';}
+function closeModal(e){if(e.target===document.getElementById('modal-overlay'))closeHistoryModal();}
+</script>
+
+
+</body></html>
