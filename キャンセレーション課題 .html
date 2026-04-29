@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<!-- saved from url=(0102)file:///C:/Users/yukik/Downloads/%E6%8E%A2%E3%81%99%E8%AA%B2%E9%A1%8C_%E4%B8%8A%E7%B4%9A%E7%89%88.html -->
+<html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>探す課題 上級版</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Hiragino Sans','Yu Gothic',sans-serif;background:#f0f0ec;color:#1a1a1a;min-height:100vh}
+.screen{display:none}.screen.active{display:block}
+
+/* SETUP */
+.setup-wrap{max-width:680px;margin:0 auto;padding:24px 20px}
+h1{font-size:24px;font-weight:500;margin-bottom:5px}
+.sub{font-size:13px;color:#666;margin-bottom:20px;line-height:1.7}
+.sec{font-size:11px;color:#999;letter-spacing:.07em;text-transform:uppercase;margin:16px 0 8px}
+.opt-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.opt-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.ocard{background:#fff;border:2px solid #e0e0e0;border-radius:9px;padding:11px;cursor:pointer;transition:border-color .15s}
+.ocard:hover{border-color:#888}.ocard.sel{border-color:#1a2744}
+.oname{font-size:13px;font-weight:500;margin-bottom:2px}
+.odesc{font-size:11px;color:#888;line-height:1.4}
+.toggle-row{display:flex;gap:8px;flex-wrap:wrap}
+.tcard{background:#fff;border:2px solid #e0e0e0;border-radius:8px;padding:8px 14px;cursor:pointer;font-size:13px;transition:border-color .15s;white-space:nowrap}
+.tcard:hover{border-color:#888}.tcard.sel{border-color:#1a2744;background:#f0f4ff;font-weight:500}
+.mode-row{display:flex;gap:8px}
+.mcard{flex:1;background:#fff;border:2px solid #e0e0e0;border-radius:9px;padding:10px;text-align:center;cursor:pointer;font-size:13px;transition:border-color .15s;line-height:1.5}
+.mcard:hover{border-color:#888}.mcard.sel{border-color:#1a2744;font-weight:500}
+.mcard small{font-size:11px;color:#888;display:block}
+.time-row{display:flex;align-items:center;gap:10px;margin-top:8px}
+.time-row label{font-size:13px;color:#666;white-space:nowrap}
+.time-row input[type=range]{flex:1;accent-color:#1a2744}
+.time-row span{font-size:13px;color:#1a2744;min-width:52px;text-align:right}
+.btn-start{width:100%;padding:14px;background:#1a2744;color:#fff;border:none;border-radius:10px;font-size:16px;font-weight:500;cursor:pointer;font-family:inherit;margin-top:16px}
+.btn-start:hover{background:#253660}
+
+/* TASK */
+.task-outer{max-width:920px;margin:0 auto;padding:10px 14px}
+.hud{background:#fff;border-radius:10px;padding:9px 18px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.hstat{text-align:center;min-width:48px}
+.hnum{font-size:19px;font-weight:500;color:#1a2744}
+.hlbl{font-size:10px;color:#aaa;margin-top:1px}
+.timer{font-size:26px;font-weight:500;font-variant-numeric:tabular-nums;color:#1a2744}
+.timer.warn{color:#e53935;animation:blink .5s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.btn-give{padding:6px 12px;background:#f0f0f0;border:1px solid #ccc;border-radius:7px;font-size:12px;cursor:pointer;font-family:inherit}
+
+.target-bar{background:#fff;border-radius:10px;padding:10px 16px;margin-bottom:8px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.target-bar-label{font-size:12px;color:#888;white-space:nowrap}
+.target-chips{display:flex;gap:8px;flex-wrap:wrap}
+.tchip{display:inline-flex;align-items:center;justify-content:center;min-width:48px;height:48px;padding:0 10px;border-radius:8px;font-size:24px;font-weight:700;border:3px solid #1a2744;background:#f0f4ff;color:#1a1a1a;transition:all .2s}
+.tchip.done{border-color:#ccc;background:#f5f5f5;color:#ccc;text-decoration:line-through}
+.tchip.active{border-color:#e53935;background:#fff3e0;box-shadow:0 0 0 3px rgba(229,57,53,.2)}
+.switch-note{font-size:11px;color:#e53935;margin-left:4px}
+
+.task-box{background:#fff;border-radius:10px;padding:14px;border:1px solid #ddd}
+.task-instr{font-size:14px;font-weight:500;color:#1a2744;margin-bottom:4px}
+.task-sub{font-size:12px;color:#888;margin-bottom:12px}
+
+.grid-outer{overflow:auto;max-height:62vh;border:1px solid #e0e0e0;border-radius:8px}
+.cell-grid{display:grid;gap:2px;padding:4px;width:fit-content}
+.cell{
+  width:38px;height:38px;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:5px;border:1px solid #e0e0e0;
+  cursor:pointer;transition:background .1s,transform .08s;
+  user-select:none;font-weight:500;background:#fafafa;
+}
+.cell:hover{background:#e8f0fe;transform:scale(1.08)}
+.cell.hit{background:#C8E6C9 !important;border-color:#388E3C !important;color:#1b5e20 !important;font-weight:700}
+.cell.wrong{background:#FFCDD2 !important;border-color:#C62828 !important;color:#7f0000 !important}
+.cell.missed{background:#FFCDD2 !important;border-color:#C62828 !important;opacity:.6}
+.cell.dimmed{opacity:.3;pointer-events:none}
+
+.prog-row{display:flex;align-items:center;gap:10px;margin-top:10px}
+.prog-bar{flex:1;height:5px;background:#e0e0e0;border-radius:3px;overflow:hidden}
+.prog-fill{height:100%;background:#1a2744;border-radius:3px;transition:width .3s}
+.prog-txt{font-size:12px;color:#888;white-space:nowrap}
+
+/* RESULT */
+.res-outer{max-width:540px;margin:0 auto;padding:24px 20px}
+.res-title{font-size:21px;font-weight:500;text-align:center;margin-bottom:16px}
+.res-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.rcard{background:#fff;border-radius:10px;padding:14px;text-align:center}
+.rnum{font-size:26px;font-weight:500;color:#1a2744}
+.rlbl{font-size:11px;color:#aaa;margin-top:2px}
+.rcomment{background:#fff;border-radius:10px;padding:12px 14px;font-size:13px;color:#555;line-height:1.9;margin-bottom:12px}
+.rdetail{background:#fff;border-radius:10px;padding:12px 14px;margin-bottom:12px;font-size:13px;color:#555}
+.rdetail-t{font-weight:500;margin-bottom:6px;font-size:13px}
+.trow{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #f0f0f0;gap:8px}
+.trow:last-child{border-bottom:none}
+.res-btns{display:flex;gap:10px}
+.btn-again{flex:1;padding:11px;background:#1a2744;color:#fff;border:none;border-radius:9px;font-size:14px;font-weight:500;cursor:pointer;font-family:inherit}
+.btn-home{flex:1;padding:11px;background:#fff;color:#333;border:1px solid #ccc;border-radius:9px;font-size:14px;cursor:pointer;font-family:inherit}
+
+/* switch animation */
+@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.15)}100%{transform:scale(1)}}
+.tchip.pulse{animation:pulse .3s ease}
+</style>
+</head>
+<body>
+
+<!-- SETUP -->
+<div class="screen active" id="screen-setup">
+<div class="setup-wrap">
+  <h1>探す課題　上級版</h1>
+  <p class="sub">数字・マークを探す課題です。複数ターゲット・切り替えなど難度を細かく設定できます。</p>
+
+  <div class="sec">課題の種類</div>
+  <div class="opt-grid" id="type-grid">
+    <div class="ocard sel" data-t="num" onclick="selOpt(&#39;type-grid&#39;,this)"><div class="oname">数字を探す</div><div class="odesc">0〜9の数字グリッドからターゲットを探す</div></div>
+    <div class="ocard" data-t="mark" onclick="selOpt(&#39;type-grid&#39;,this)"><div class="oname">マークを探す</div><div class="odesc">記号・図形グリッドからターゲットを探す</div></div>
+    <div class="ocard" data-t="odd-num" onclick="selOpt(&#39;type-grid&#39;,this)"><div class="oname">仲間外れ数字</div><div class="odesc">各行に1つだけ混じった違う数字を探す</div></div>
+    <div class="ocard" data-t="odd-mark" onclick="selOpt(&#39;type-grid&#39;,this)"><div class="oname">仲間外れマーク</div><div class="odesc">各行に1つだけ混じった違うマークを探す</div></div>
+  </div>
+
+  <div class="sec">ターゲット数（「同じものを探す」系のみ）</div>
+  <div class="toggle-row" id="target-count-row">
+    <div class="tcard" data-v="1" onclick="selToggle(&#39;tcount&#39;,this)">1種類</div>
+    <div class="tcard sel" data-v="2" onclick="selToggle(&#39;tcount&#39;,this)">2種類同時</div>
+    <div class="tcard" data-v="3" onclick="selToggle(&#39;tcount&#39;,this)">3種類同時</div>
+  </div>
+
+  <div class="sec">切り替え課題</div>
+  <div class="toggle-row">
+    <div class="tcard sel" data-v="none" onclick="selToggle(&#39;switch&#39;,this)">なし</div>
+    <div class="tcard" data-v="after" onclick="selToggle(&#39;switch&#39;,this)">発見後に次のターゲットへ切り替え</div>
+    <div class="tcard" data-v="timed" onclick="selToggle(&#39;switch&#39;,this)">時間で自動切り替え（10秒ごと）</div>
+  </div>
+
+  <div class="sec">グリッドサイズ</div>
+  <div class="opt-grid-3" id="size-grid">
+    <div class="ocard sel" data-v="small" onclick="selOpt(&#39;size-grid&#39;,this)"><div class="oname">小（画面内）</div><div class="odesc">スクロール不要</div></div>
+    <div class="ocard" data-v="medium" onclick="selOpt(&#39;size-grid&#39;,this)"><div class="oname">中（やや広い）</div><div class="odesc">少しスクロールが必要</div></div>
+    <div class="ocard" data-v="large" onclick="selOpt(&#39;size-grid&#39;,this)"><div class="oname">大（広い）</div><div class="odesc">スクロール必須・視野が重要</div></div>
+  </div>
+
+  <div class="sec">視覚的難度（文字色・背景）</div>
+  <div class="toggle-row" id="visual-row">
+    <div class="tcard sel" data-v="easy" onclick="selToggle(&#39;visual&#39;,this)">通常（黒文字・白背景）</div>
+    <div class="tcard" data-v="medium" onclick="selToggle(&#39;visual&#39;,this)">薄め（グレー文字）</div>
+    <div class="tcard" data-v="hard" onclick="selToggle(&#39;visual&#39;,this)">混色（文字色がランダム）</div>
+  </div>
+
+  <div class="sec">タイマー</div>
+  <div class="mode-row">
+    <div class="mcard" data-m="up" onclick="selMode(this)">カウントアップ<small>かかった時間を計測</small></div>
+    <div class="mcard sel" data-m="down" onclick="selMode(this)">カウントダウン<small>制限時間内に探す</small></div>
+  </div>
+  <div id="time-limit-row" style="display: block;">
+    <div class="time-row">
+      <label>制限時間</label>
+      <input type="range" min="15" max="300" step="15" value="120" id="p-time" oninput="updateTime(this.value)">
+      <span id="v-time">2分00秒</span>
+    </div>
+  </div>
+
+  <button class="btn-start" onclick="startTask()">課題を開始する</button>
+</div>
+</div>
+
+<!-- TASK -->
+<div class="screen" id="screen-task">
+<div class="task-outer">
+  <div class="hud">
+    <div class="hstat"><div class="hnum" id="h-found">5</div><div class="hlbl">発見</div></div>
+    <div class="hstat"><div class="hnum" id="h-total">14</div><div class="hlbl">合計</div></div>
+    <div class="hstat"><div class="hnum" id="h-wrong">0</div><div class="hlbl">誤クリック</div></div>
+    <div class="timer" id="timer-disp">1:43</div>
+    <button class="btn-give" onclick="giveUp()">答えを見る</button>
+  </div>
+
+  <div class="target-bar" id="target-bar">
+    <span class="target-bar-label" id="target-bar-label">探すもの：</span>
+    <div class="target-chips" id="target-chips"><div class="tchip" id="chip-0">7<span style="font-size: 10px; margin-left: 4px; color: rgb(136, 136, 136);">3/7</span></div><div class="tchip" id="chip-1">8<span style="font-size: 10px; margin-left: 4px; color: rgb(136, 136, 136);">2/7</span></div></div>
+    <span class="switch-note" id="switch-note" style="display:none"></span>
+  </div>
+
+  <div class="task-box">
+    <div class="task-instr" id="task-instr">7・8 をすべて探してください</div>
+    <div class="task-sub" id="task-sub">合計14個あります</div>
+    <div class="grid-outer" id="grid-outer">
+      <div class="cell-grid" id="cell-grid" style="grid-template-columns: repeat(10, 38px);"><div class="cell" style="font-size: 19px;">2</div><div class="cell" style="font-size: 19px;">1</div><div class="cell" style="font-size: 19px;">3</div><div class="cell hit" style="font-size: 19px;">7</div><div class="cell" style="font-size: 19px;">3</div><div class="cell" style="font-size: 19px;">0</div><div class="cell" style="font-size: 19px;">6</div><div class="cell" style="font-size: 19px;">1</div><div class="cell hit" style="font-size: 19px;">7</div><div class="cell" style="font-size: 19px;">1</div><div class="cell" style="font-size: 19px;">0</div><div class="cell hit" style="font-size: 19px;">7</div><div class="cell hit" style="font-size: 19px;">8</div><div class="cell" style="font-size: 19px;">4</div><div class="cell" style="font-size: 19px;">5</div><div class="cell" style="font-size: 19px;">9</div><div class="cell" style="font-size: 19px;">9</div><div class="cell" style="font-size: 19px;">5</div><div class="cell" style="font-size: 19px;">2</div><div class="cell" style="font-size: 19px;">1</div><div class="cell" style="font-size: 19px;">3</div><div class="cell" style="font-size: 19px;">9</div><div class="cell missed" style="font-size: 19px;">8</div><div class="cell" style="font-size: 19px;">6</div><div class="cell hit" style="font-size: 19px;">8</div><div class="cell" style="font-size: 19px;">2</div><div class="cell" style="font-size: 19px;">6</div><div class="cell" style="font-size: 19px;">4</div><div class="cell" style="font-size: 19px;">5</div><div class="cell" style="font-size: 19px;">2</div><div class="cell" style="font-size: 19px;">4</div><div class="cell" style="font-size: 19px;">0</div><div class="cell" style="font-size: 19px;">1</div><div class="cell" style="font-size: 19px;">9</div><div class="cell" style="font-size: 19px;">1</div><div class="cell" style="font-size: 19px;">9</div><div class="cell" style="font-size: 19px;">6</div><div class="cell" style="font-size: 19px;">4</div><div class="cell" style="font-size: 19px;">5</div><div class="cell missed" style="font-size: 19px;">8</div><div class="cell missed" style="font-size: 19px;">7</div><div class="cell missed" style="font-size: 19px;">7</div><div class="cell missed" style="font-size: 19px;">8</div><div class="cell" style="font-size: 19px;">0</div><div class="cell" style="font-size: 19px;">5</div><div class="cell" style="font-size: 19px;">9</div><div class="cell missed" style="font-size: 19px;">7</div><div class="cell" style="font-size: 19px;">9</div><div class="cell" style="font-size: 19px;">1</div><div class="cell" style="font-size: 19px;">4</div><div class="cell" style="font-size: 19px;">0</div><div class="cell" style="font-size: 19px;">6</div><div class="cell" style="font-size: 19px;">3</div><div class="cell missed" style="font-size: 19px;">8</div><div class="cell" style="font-size: 19px;">6</div><div class="cell missed" style="font-size: 19px;">7</div><div class="cell" style="font-size: 19px;">4</div><div class="cell" style="font-size: 19px;">1</div><div class="cell" style="font-size: 19px;">6</div><div class="cell" style="font-size: 19px;">1</div><div class="cell" style="font-size: 19px;">3</div><div class="cell" style="font-size: 19px;">6</div><div class="cell" style="font-size: 19px;">2</div><div class="cell" style="font-size: 19px;">3</div><div class="cell missed" style="font-size: 19px;">8</div><div class="cell" style="font-size: 19px;">2</div><div class="cell" style="font-size: 19px;">1</div><div class="cell" style="font-size: 19px;">4</div><div class="cell" style="font-size: 19px;">3</div><div class="cell" style="font-size: 19px;">2</div></div>
+    </div>
+    <div class="prog-row">
+      <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width: 36%;"></div></div>
+      <div class="prog-txt" id="prog-txt">5 / 14</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- RESULT -->
+<div class="screen" id="screen-result">
+<div class="res-outer">
+  <div class="res-title">結果</div>
+  <div class="res-grid">
+    <div class="rcard"><div class="rnum" id="r-found">5/14</div><div class="rlbl">発見数</div></div>
+    <div class="rcard"><div class="rnum" id="r-time">0:17</div><div class="rlbl">タイム</div></div>
+    <div class="rcard"><div class="rnum" id="r-wrong">0</div><div class="rlbl">誤クリック</div></div>
+  </div>
+  <div class="rdetail" id="r-detail"><div class="rdetail-t">ターゲットごとの結果</div><div class="trow"><span>7</span><span>3/7個（43%）</span></div><div class="trow"><span>8</span><span>2/7個（29%）</span></div></div>
+  <div class="rcomment" id="r-comment">時間切れです。5個発見、9個見逃し。見逃しは赤く表示されています。</div>
+  <div class="res-btns">
+    <button class="btn-again" onclick="startTask()">もう一度</button>
+    <button class="btn-home" onclick="showScreen(&#39;setup&#39;)">設定に戻る</button>
+  </div>
+</div>
+</div>
+
+<script>
+const cfg={type:'num',tcount:1,switchMode:'none',size:'small',visual:'easy',timerMode:'up',timeLimit:120};
+
+const NUMS=['0','1','2','3','4','5','6','7','8','9'];
+const MARKS=['★','●','■','▲','♦','♥','♠','♣','◎','☆','○','□','△','◇','♩','※'];
+const SIMILAR_NUMS=[['6','9'],['1','7'],['3','8'],['0','6'],['2','7']];
+const SIMILAR_MARKS=[['★','☆'],['●','○'],['■','□'],['▲','△'],['♦','◇']];
+const COLORS_HARD=['#e53935','#1565c0','#2e7d32','#6a1b9a','#ef6c00','#00838f','#4e342e'];
+
+let timerTick=null,switchTick=null;
+let elapsed=0,timeLeft=0;
+let found=0,wrongClicks=0,totalTargets=0;
+let taskRunning=false;
+let cells=[];
+let targets=[];// [{text, found:0, total:N}]
+let activeTargetIdx=0;
+let perTargetStats=[];
+
+function selOpt(gridId,el){document.querySelectorAll(`#${gridId} .ocard`).forEach(c=>c.classList.remove('sel'));el.classList.add('sel');
+  if(gridId==='type-grid')cfg.type=el.dataset.t;
+  else if(gridId==='size-grid')cfg.size=el.dataset.v;
+}
+function selToggle(key,el){
+  el.closest('.toggle-row').querySelectorAll('.tcard').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');
+  if(key==='tcount')cfg.tcount=+el.dataset.v;
+  else if(key==='switch')cfg.switchMode=el.dataset.v;
+  else if(key==='visual')cfg.visual=el.dataset.v;
+}
+function selMode(el){document.querySelectorAll('.mcard').forEach(c=>c.classList.remove('sel'));el.classList.add('sel');cfg.timerMode=el.dataset.m;document.getElementById('time-limit-row').style.display=cfg.timerMode==='down'?'block':'none';}
+function updateTime(v){cfg.timeLimit=+v;const m=Math.floor(v/60),s=v%60;document.getElementById('v-time').textContent=`${m}分${String(s).padStart(2,'0')}秒`;}
+function showScreen(s){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById('screen-'+s).classList.add('active');}
+function fmtTime(s){return `${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`;}
+function rnd(a,b){return Math.floor(Math.random()*(b-a+1)+a);}
+function shuffle(arr){for(let i=arr.length-1;i>0;i--){const j=rnd(0,i);[arr[i],arr[j]]=[arr[j],arr[i]];}return arr;}
+function pick(arr,n){const s=shuffle([...arr]);return s.slice(0,n);}
+
+function startTask(){
+  found=0;wrongClicks=0;elapsed=0;taskRunning=false;
+  cells=[];targets=[];activeTargetIdx=0;perTargetStats=[];
+  clearInterval(timerTick);clearInterval(switchTick);
+
+  const isOdd=cfg.type==='odd-num'||cfg.type==='odd-mark';
+  const pool=cfg.type==='mark'||cfg.type==='odd-mark'?MARKS:NUMS;
+
+  // grid dimensions
+  const dims={small:{cols:10,rows:7},medium:{cols:14,rows:10},large:{cols:18,rows:13}};
+  const {cols,rows}=dims[cfg.size];
+  const total=cols*rows;
+
+  let items=[];
+
+  if(!isOdd){
+    // pick targets
+    const tCount=cfg.switchMode==='after'?cfg.tcount:cfg.tcount; // same either way
+    const targetTexts=pick(pool,tCount);
+    const countPerTarget=cfg.size==='small'?rnd(4,7):cfg.size==='medium'?rnd(6,10):rnd(8,14);
+
+    targetTexts.forEach(t=>{
+      targets.push({text:t,found:0,total:countPerTarget});
+      perTargetStats.push({text:t,found:0,total:countPerTarget,wrong:0});
+    });
+    totalTargets=countPerTarget*tCount;
+
+    // fill grid
+    const targetSet=new Set(targetTexts);
+    let arr=[];
+    // add all target occurrences
+    targetTexts.forEach(t=>{for(let i=0;i<countPerTarget;i++)arr.push({text:t,isTarget:true,targetIdx:targetTexts.indexOf(t)});});
+    // fill rest with non-targets
+    const nonPool=pool.filter(x=>!targetSet.has(x));
+    while(arr.length<total){arr.push({text:nonPool[rnd(0,nonPool.length-1)],isTarget:false,targetIdx:-1});}
+    shuffle(arr);
+    items=arr.slice(0,total);
+
+  } else {
+    // odd-one-out
+    const rowCount=cfg.size==='small'?6:cfg.size==='medium'?9:12;
+    const colCount=cfg.size==='small'?9:cfg.size==='medium'?12:15;
+    let arr=[];
+    let oddCount=0;
+    for(let r=0;r<rowCount;r++){
+      const base=pool[rnd(0,pool.length-1)];
+      let odd;
+      const simPairs=cfg.type==='odd-num'?SIMILAR_NUMS:SIMILAR_MARKS;
+      const pair=simPairs.find(p=>p[0]===base||p[1]===base);
+      odd=pair?(base===pair[0]?pair[1]:pair[0]):pool.filter(x=>x!==base)[rnd(0,pool.length-2)];
+      const oddPos=rnd(0,colCount-1);
+      for(let c=0;c<colCount;c++){
+        const isOdd=c===oddPos;
+        arr.push({text:isOdd?odd:base,isTarget:isOdd,targetIdx:0});
+        if(isOdd)oddCount++;
+      }
+    }
+    totalTargets=oddCount;
+    targets=[{text:'仲間外れ',found:0,total:oddCount}];
+    perTargetStats=[{text:'仲間外れ',found:0,total:oddCount,wrong:0}];
+    items=arr;
+    buildGrid(items,colCount);
+    gotoTask(isOdd,cols);
+    return;
+  }
+
+  buildGrid(items,cols);
+  gotoTask(isOdd,cols);
+}
+
+function buildGrid(items,cols){
+  const grid=document.getElementById('cell-grid');
+  grid.innerHTML='';
+  grid.style.gridTemplateColumns=`repeat(${cols},38px)`;
+  cells=[];
+  const fontSize=cfg.size==='small'?'19px':cfg.size==='medium'?'16px':'14px';
+  items.forEach((item,i)=>{
+    const cell=document.createElement('div');
+    cell.className='cell';
+    cell.textContent=item.text;
+    cell.style.fontSize=fontSize;
+    // visual difficulty
+    if(cfg.visual==='medium'){cell.style.color='#aaa';}
+    else if(cfg.visual==='hard'){cell.style.color=COLORS_HARD[rnd(0,COLORS_HARD.length-1)];}
+    cell.addEventListener('click',()=>onCellClick(i));
+    grid.appendChild(cell);
+    cells.push({el:cell,isTarget:item.isTarget,targetIdx:item.targetIdx,clicked:false});
+  });
+}
+
+function gotoTask(isOdd,cols){
+  // instruction
+  let instr='',sub='';
+  if(isOdd){
+    instr='仲間外れを探してクリックしてください';
+    sub='各行に1つだけ違うものが混じっています';
+  } else if(cfg.switchMode==='after'){
+    instr='ターゲットをすべて探してください（順番に切り替わります）';
+    sub=`まず「${targets[0].text}」を全部見つけてください。見つかったら次のターゲットに切り替わります`;
+  } else if(cfg.switchMode==='timed'){
+    instr='ターゲットが10秒ごとに切り替わります';
+    sub='表示されているターゲットをできるだけ早く探してください';
+  } else {
+    instr=targets.length===1?`「${targets[0].text}」をすべて探してクリックしてください`:`${targets.map(t=>t.text).join('・')} をすべて探してください`;
+    sub=`合計${totalTargets}個あります`;
+  }
+  document.getElementById('task-instr').textContent=instr;
+  document.getElementById('task-sub').textContent=sub;
+  document.getElementById('h-found').textContent=0;
+  document.getElementById('h-total').textContent=totalTargets;
+  document.getElementById('h-wrong').textContent=0;
+  document.getElementById('prog-fill').style.width='0%';
+  document.getElementById('prog-txt').textContent=`0 / ${totalTargets}`;
+
+  // target chips
+  renderTargetChips();
+
+  // switch note
+  const note=document.getElementById('switch-note');
+  if(cfg.switchMode==='timed'){note.style.display='inline';note.textContent='10秒ごとに切り替わります';}
+  else note.style.display='none';
+
+  // timer
+  if(cfg.timerMode==='up'){
+    elapsed=0;
+    document.getElementById('timer-disp').textContent='0:00';
+    document.getElementById('timer-disp').className='timer';
+    timerTick=setInterval(()=>{elapsed++;document.getElementById('timer-disp').textContent=fmtTime(elapsed);},1000);
+  } else {
+    timeLeft=cfg.timeLimit;
+    document.getElementById('timer-disp').textContent=fmtTime(timeLeft);
+    document.getElementById('timer-disp').className='timer';
+    timerTick=setInterval(()=>{
+      timeLeft--;
+      document.getElementById('timer-disp').textContent=fmtTime(timeLeft);
+      if(timeLeft<=10)document.getElementById('timer-disp').className='timer warn';
+      if(timeLeft<=0){clearInterval(timerTick);clearInterval(switchTick);timeUp();}
+    },1000);
+  }
+
+  // timed switch
+  if(cfg.switchMode==='timed'){
+    activeTargetIdx=0;
+    switchTick=setInterval(()=>{
+      activeTargetIdx=(activeTargetIdx+1)%targets.length;
+      renderTargetChips();
+    },10000);
+  }
+
+  taskRunning=true;
+  showScreen('task');
+}
+
+function renderTargetChips(){
+  const wrap=document.getElementById('target-chips');
+  const lbl=document.getElementById('target-bar-label');
+  wrap.innerHTML='';
+
+  const isOdd=cfg.type==='odd-num'||cfg.type==='odd-mark';
+  if(isOdd){lbl.textContent='仲間外れを探してください';return;}
+  lbl.textContent='探すもの：';
+
+  targets.forEach((t,i)=>{
+    const chip=document.createElement('div');
+    chip.className='tchip';
+    chip.id=`chip-${i}`;
+    chip.textContent=t.text;
+    const allFound=t.found>=t.total;
+    if(allFound){chip.classList.add('done');}
+    else if(cfg.switchMode==='after'&&i===activeTargetIdx){chip.classList.add('active');}
+    else if(cfg.switchMode==='timed'&&i===activeTargetIdx){chip.classList.add('active');}
+    // show count
+    if(!allFound&&targets.length>1){
+      const cnt=document.createElement('span');
+      cnt.style.cssText='font-size:10px;margin-left:4px;color:#888;';
+      cnt.textContent=`${t.found}/${t.total}`;
+      chip.appendChild(cnt);
+    }
+    wrap.appendChild(chip);
+  });
+}
+
+function onCellClick(i){
+  if(!taskRunning)return;
+  const c=cells[i];
+  if(c.clicked)return;
+  c.clicked=true;
+
+  const isOdd=cfg.type==='odd-num'||cfg.type==='odd-mark';
+
+  if(c.isTarget){
+    // check if valid for current mode
+    let valid=true;
+    if(cfg.switchMode==='after'&&!isOdd){
+      valid=(c.targetIdx===activeTargetIdx);
+    } else if(cfg.switchMode==='timed'&&!isOdd){
+      valid=(c.targetIdx===activeTargetIdx);
+    }
+
+    if(valid){
+      c.el.classList.add('hit');
+      found++;
+      if(!isOdd)targets[c.targetIdx].found++;
+      perTargetStats[isOdd?0:c.targetIdx].found++;
+      document.getElementById('h-found').textContent=found;
+      updateProgress();
+      renderTargetChips();
+
+      // after-mode: check if current target complete
+      if(cfg.switchMode==='after'&&!isOdd){
+        if(targets[activeTargetIdx].found>=targets[activeTargetIdx].total){
+          activeTargetIdx++;
+          if(activeTargetIdx>=targets.length){allFound();}
+          else{
+            renderTargetChips();
+            // pulse new active chip
+            const chip=document.getElementById(`chip-${activeTargetIdx}`);
+            if(chip){chip.classList.add('pulse');setTimeout(()=>chip.classList.remove('pulse'),300);}
+            document.getElementById('task-sub').textContent=`次は「${targets[activeTargetIdx].text}」を全部見つけてください`;
+          }
+        }
+      } else if(found>=totalTargets){allFound();}
+    } else {
+      // right item but wrong timing
+      c.el.classList.add('wrong');
+      wrongClicks++;
+      document.getElementById('h-wrong').textContent=wrongClicks;
+      setTimeout(()=>{c.el.classList.remove('wrong');c.el.classList.add('dimmed');},400);
+    }
+  } else {
+    c.el.classList.add('wrong');
+    wrongClicks++;
+    document.getElementById('h-wrong').textContent=wrongClicks;
+    setTimeout(()=>{c.el.classList.remove('wrong');c.el.classList.add('dimmed');},400);
+  }
+}
+
+function updateProgress(){
+  const pct=Math.round(found/totalTargets*100);
+  document.getElementById('prog-fill').style.width=pct+'%';
+  document.getElementById('prog-txt').textContent=`${found} / ${totalTargets}`;
+}
+
+function allFound(){
+  taskRunning=false;
+  clearInterval(timerTick);clearInterval(switchTick);
+  const time=cfg.timerMode==='up'?elapsed:cfg.timeLimit-timeLeft;
+  setTimeout(()=>showResult(time,false),400);
+}
+
+function timeUp(){
+  taskRunning=false;
+  cells.forEach(c=>{if(!c.clicked&&c.isTarget)c.el.classList.add('missed');});
+  setTimeout(()=>showResult(cfg.timeLimit,true),600);
+}
+
+function giveUp(){
+  if(!taskRunning)return;
+  taskRunning=false;
+  clearInterval(timerTick);clearInterval(switchTick);
+  const time=cfg.timerMode==='up'?elapsed:cfg.timeLimit-timeLeft;
+  cells.forEach(c=>{if(!c.clicked&&c.isTarget)c.el.classList.add('missed');});
+  setTimeout(()=>showResult(time,true),500);
+}
+
+function showResult(time,incomplete){
+  const missed=totalTargets-found;
+  const rate=Math.round(found/totalTargets*100);
+  document.getElementById('r-found').textContent=`${found}/${totalTargets}`;
+  document.getElementById('r-time').textContent=fmtTime(time);
+  document.getElementById('r-wrong').textContent=wrongClicks;
+
+  // per-target detail
+  const isOdd=cfg.type==='odd-num'||cfg.type==='odd-mark';
+  let detailHtml='<div class="rdetail-t">ターゲットごとの結果</div>';
+  perTargetStats.forEach(s=>{
+    const r=Math.round(s.found/s.total*100);
+    detailHtml+=`<div class="trow"><span>${isOdd?'仲間外れ':s.text}</span><span>${s.found}/${s.total}個（${r}%）</span></div>`;
+  });
+  document.getElementById('r-detail').innerHTML=detailHtml;
+
+  let comment='';
+  if(rate===100&&wrongClicks===0)comment='全問正解・誤クリックなし！素晴らしい集中力です。';
+  else if(rate===100)comment=`全問発見できました。誤クリックが${wrongClicks}回ありました。`;
+  else if(incomplete)comment=`時間切れです。${found}個発見、${missed}個見逃し。見逃しは赤く表示されています。`;
+  else comment=`${found}個発見しました。見逃しが${missed}個、誤クリックが${wrongClicks}回です。`;
+  if(cfg.switchMode!=='none')comment+='\n切り替え課題での成績です。';
+  document.getElementById('r-comment').textContent=comment;
+
+  showScreen('result');
+}
+</script>
+
+
+</body></html>
